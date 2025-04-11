@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  web:
+    build:
+      context: .  # Usa la directory corrente come contesto di build
+      dockerfile: Dockerfile  # Specifica il Dockerfile
+    container_name: php_app
+    ports:
+      - "8080:80"
+    volumes:
+      - '/Users/danielepellati/Desktop/Progetto_IDS/www:/var/www/html'
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: progetto_IGS
+    ports:
+      - "3306:3306"
+    volumes:
+      - '/Users/danielepellati/Desktop/Progetto_IDS/database:/var/lib/mysql'
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    depends_on:
+      - db
