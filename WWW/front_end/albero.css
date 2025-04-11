@@ -1,1 +1,57 @@
+/* Applica lo stesso stile per i nodi con figli e quelli foglia */
+.node-card, .leaf-card {
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    transition: background-color 0.3s ease;
+}
+
+.node-card:hover, .leaf-card:hover {
+    background-color: #e9ecef;
+}
+
+.tree span.toggle {
+    background-color: #f8f9fa;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.tree span.toggle:hover {
+    background-color: #e9ecef;
+}
+
+.node-card .btn, .leaf-card .btn {
+    margin-right: 10px;
+}
+
+.node-card span, .leaf-card span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Aggiungi una classe per migliorare l'aspetto dei nodi */
+.tree li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.tree ul {
+    display: none;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.tree .toggle::before {
+    content: "▶";
+    display: inline-block;
+    width: 1em;
+    cursor: pointer;
+}
+
+.tree .toggle.open::before {
+    content: "▼";
+}
 
