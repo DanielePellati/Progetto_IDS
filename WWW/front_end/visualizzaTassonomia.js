@@ -28,7 +28,7 @@ function creaAlbero(padreId, tassonomia) {
       if (tassonomia.some(el => el.id_padre === figlio.id)) {
           // Nodo con figli
           let nodeCard = $(`<div class='node-card'><span class='toggle'>${figlio.nome}</span></div>`);
-          let btn1 = $(`<button onclick="window.location.href='visualizzaElemento.php?id_elemento=${figlio.id}'" class='btn btn-primary btn-sm'>Visualizza</button>`);
+          let btn1 = $(`<button onclick="window.location.href='visualizzaElemento.html?id_elemento=${figlio.id}'" class='btn btn-primary btn-sm'>Visualizza</button>`);
           let btn2 = $("<button class='btn btn-secondary btn-sm'>Modifica</button>");
           nodeCard.append(btn1, btn2);
           li.append(nodeCard);
@@ -36,7 +36,7 @@ function creaAlbero(padreId, tassonomia) {
       } else {
           // Foglia senza figli
           let leafCard = $(`<div class='leaf-card'><span>${figlio.nome}</span></div>`);
-          let btn1 = $(`<button onclick="window.location.href='visualizzaElemento.php?id_elemento=${figlio.id}'" class='btn btn-primary btn-sm'>Visualizza</button>`);
+          let btn1 = $(`<button onclick="window.location.href='visualizzaElemento.html?id_elemento=${figlio.id}'" class='btn btn-primary btn-sm'>Visualizza</button>`);
           let btn2 = $("<button class='btn btn-secondary btn-sm'>Modifica</button>");
           leafCard.append(btn1, btn2);
           li.append(leafCard);
@@ -53,7 +53,7 @@ function popolaAlbero(tassonomia){
       if (radice) {
           let rootLi = $("<li></li>");
           let rootCard = $(`<div class='node-card'><span class='toggle'>${radice.nome}</span></div>`);
-          let btn1 = $(`<button onclick="window.location.href='visualizzaElemento.php?id_elemento=${radice.id}'" class='btn btn-primary btn-sm'>Visualizza</button>`);
+          let btn1 = $(`<button onclick="window.location.href='visualizzaElemento.html?id_elemento=${radice.id}'" class='btn btn-primary btn-sm'>Visualizza</button>`);
           let btn2 = $("<button class='btn btn-secondary btn-sm'>Modifica</button>");
           rootCard.append(btn1, btn2);
           rootLi.append(rootCard);

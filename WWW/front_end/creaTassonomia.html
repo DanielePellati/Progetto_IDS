@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Crea Tassonomia</title>
+    <link href="/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <script src="/jquery/jquery-3.7.1.min.js"></script>
+  </head>
+  <body class="bg-light">
+    <div class="container mt-5">
+      <div class="card shadow rounded-4">
+        <div class="card-body">
+          <h2 class="card-title mb-4">Crea una nuova Tassonomia</h2>
+
+          <!-- Form per inserire il nome della tassonomia e numero di voci -->
+          <form id="form-tassonomia">
+            <div class="mb-3">
+              <label for="nomeTassonomia" class="form-label"
+                >Nome della Tassonomia</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="nomeTassonomia"
+                placeholder="Inserisci il nome"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="nomeTassonomia" class="form-label"
+                >Descrizione della Tassonomia</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="descTassonomia"
+                placeholder="Inserisci la descrizione"
+              />
+            </div>
+
+            <!-- Campo per il numero di voci -->
+            <div class="mb-3">
+              <label for="numeroVoci" class="form-label">Numero di Voci</label>
+              <input
+                type="number"
+                class="form-control"
+                id="numeroVoci"
+                placeholder="Inserisci il numero di voci"
+                min="0"
+                value="0"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salva</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="creaTassonomia.js"></script>
+  </body>
+</html>

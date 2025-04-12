@@ -10,10 +10,14 @@ var templateRiga = `
             {nome}
         </td>
         <td>
-            <a href="/front_end/visualizzaTassonomia.php?id={id}">Visualizza</a>
+            <a href="/front_end/visualizzaTassonomia.html?id={id}" class="btn btn-outline-primary btn-sm" title="Visualizza">
+                <i class="bi bi-eye"></i>
+            </a>
         </td>
     </tr>
 `;
+
+
 let riga; 
 
 $(document).ready(function () {
@@ -22,7 +26,9 @@ $(document).ready(function () {
         var tassonomie = JSON.parse(data);
         
         $.each(tassonomie, function (_, tassonomia) { 
-            riga = templateRiga.replace("{nome}", tassonomia.nome).replace("{id}", tassonomia.id);
+            riga = templateRiga
+                .replace("{nome}", tassonomia.nome)
+                .replace("{id}", tassonomia.id);
             $("#scelta_tassonomia").append(riga);
         });
       }, 'json');
