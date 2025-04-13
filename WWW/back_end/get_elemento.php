@@ -109,14 +109,14 @@ function getValoriPrecedenti($id, $pdo){
 function getIntestazione($id, $pdo){
 
     $query = <<<SQL
-        SELECT nome FROM elemento WHERE id = :id
+        SELECT nome, id_tassonomia FROM elemento WHERE id = :id
     SQL;
 
     $stmt = $pdo->prepare($query);
     $stmt->execute(['id'=>$id]);   
     
     $risultato = $stmt->fetch();
-    echo $risultato[0];
+    echo $risultato[0] . "," . $risultato[1];
 
 }
 
