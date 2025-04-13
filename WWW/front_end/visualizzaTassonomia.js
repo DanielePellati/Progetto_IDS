@@ -30,7 +30,8 @@ function creaAlbero(padreId, tassonomia) {
           let nodeCard = $(`<div class='node-card'><span class='toggle'>${figlio.nome}</span></div>`);
           let btn1 = $(`<button onclick="window.location.href='visualizzaElemento.html?id_elemento=${figlio.id}'" class='btn btn-primary btn-sm'>Visualizza</button>`);
           let btn2 = $("<button class='btn btn-secondary btn-sm'>Modifica</button>");
-          nodeCard.append(btn1, btn2);
+          let btn3 = $(`<button onclick = "window.location.href='aggiungiFiglio.html'" class="btn btn-secondary btn-sm">Aggiungi figlio</button>`)
+          nodeCard.append(btn1, btn2, btn3);
           li.append(nodeCard);
           li.append(creaAlbero(figlio.id, tassonomia));
       } else {
@@ -38,7 +39,8 @@ function creaAlbero(padreId, tassonomia) {
           let leafCard = $(`<div class='leaf-card'><span>${figlio.nome}</span></div>`);
           let btn1 = $(`<button onclick="window.location.href='visualizzaElemento.html?id_elemento=${figlio.id}'" class='btn btn-primary btn-sm'>Visualizza</button>`);
           let btn2 = $("<button class='btn btn-secondary btn-sm'>Modifica</button>");
-          leafCard.append(btn1, btn2);
+          let btn3 = $(`<button onclick = "window.location.href='aggiungiFiglio.html'" class="btn btn-secondary btn-sm">Aggiungi figlio</button>`)
+          leafCard.append(btn1, btn2, btn3);
           li.append(leafCard);
       }
       ul.append(li);
@@ -55,7 +57,8 @@ function popolaAlbero(tassonomia){
           let rootCard = $(`<div class='node-card'><span class='toggle'>${radice.nome}</span></div>`);
           let btn1 = $(`<button onclick="window.location.href='visualizzaElemento.html?id_elemento=${radice.id}'" class='btn btn-primary btn-sm'>Visualizza</button>`);
           let btn2 = $("<button class='btn btn-secondary btn-sm'>Modifica</button>");
-          rootCard.append(btn1, btn2);
+          let btn3 = $(`<button onclick = "window.location.href='aggiungiFiglio.html'" class="btn btn-secondary btn-sm">Aggiungi figlio</button>`)
+          rootCard.append(btn1, btn2, btn3);
           rootLi.append(rootCard);
           rootLi.append(creaAlbero(radice.id, tassonomia));
           $("#tree-container").append(rootLi);
