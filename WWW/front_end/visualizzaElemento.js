@@ -215,7 +215,9 @@ function creaTabella(data, sceltaTabella) {
 }
 
 function creaIntestazione(data){
-  $(".nome_elemento").html(data);
+  var dataSplitted = data.split(",");
+  $(".nome_elemento").html(dataSplitted[0]);
+  $("#indietro").attr("href", `visualizzaTassonomia.html?id=${dataSplitted[1]}`);
 }
 
 
