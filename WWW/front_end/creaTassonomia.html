@@ -1,63 +1,87 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Crea Tassonomia</title>
-    <link href="/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <script src="/jquery/jquery-3.7.1.min.js"></script>
-  </head>
-  <body class="bg-light">
-    <div class="container mt-5">
-      <div class="card shadow rounded-4">
-        <div class="card-body">
-          <h2 class="card-title mb-4">Crea una nuova Tassonomia</h2>
 
-          <!-- Form per inserire il nome della tassonomia e numero di voci -->
-          <form id="form-tassonomia">
-            <div class="mb-3">
-              <label for="nomeTassonomia" class="form-label"
-                >Nome della Tassonomia</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="nomeTassonomia"
-                placeholder="Inserisci il nome"
-              />
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <title>Crea Tassonomia</title>
+  <link href="/bootstrap/bootstrap.min.css" rel="stylesheet" />
+  <script src="/jquery/jquery-3.7.1.min.js"></script>
+  <script src="/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="classElementoTassonomia.js"></script>
+  <script src="creaTassonomia.js"></script>
+  <link rel="stylesheet" href="creaTassonomia.css">
+</head>
 
-            <div class="mb-3">
-              <label for="nomeTassonomia" class="form-label"
-                >Descrizione della Tassonomia</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="descTassonomia"
-                placeholder="Inserisci la descrizione"
-              />
-            </div>
+<body class="bg-light">
+  <div class="container mt-5">
 
-            <!-- Campo per il numero di voci -->
-            <div class="mb-3">
-              <label for="numeroVoci" class="form-label">Numero di Voci</label>
-              <input
-                type="number"
-                class="form-control"
-                id="numeroVoci"
-                placeholder="Inserisci il numero di voci"
-                min="0"
-                value="0"
-              />
-            </div>
+    <!-- Form 1: Tassonomia -->
+    <div class="card shadow rounded-4 mb-4">
+      <div class="card-body">
+        <h2 class="card-title mb-4">Crea una nuova Tassonomia</h2>
 
-            <button type="submit" class="btn btn-primary">Salva</button>
-          </form>
+        <form id="form-tassonomia">
+          <div class="mb-3">
+            <label for="nomeTassonomia" class="form-label">Nome della Tassonomia</label>
+            <input type="text" class="form-control" id="nomeTassonomia" placeholder="Inserisci il nome" required />
+            <div class="messageNome message" >Campo obbligatorio</div>
+          </div>
+        </form>
+
+
+        <div class="mb-3">
+          <label for="descTassonomia" class="form-label">Descrizione della Tassonomia</label>
+          <input type="text" class="form-control" id="descTassonomia" placeholder="Inserisci la descrizione" />
         </div>
+
+        <div class="mb-3">
+          <label for="nodoRadice" class="form-label">Nome del nodo radice</label>
+          <input type="text" class="form-control" id="nodoRadice" placeholder="Inserisci il nome della radice" />
+          <div class="messageRadice message">Se non inserito, la radice prenderà il nome della
+            Tassonomia</div>
+        </div>
+        </form>
       </div>
     </div>
 
-    <script src="/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="creaTassonomia.js"></script>
-  </body>
+    <!-- Form 2: Valori padre/figli -->
+    <div class="card shadow rounded-4 mb-4">
+      <div class="card-body">
+        <h2 class="card-title mb-4">Aggiungi attributi alla radice</h2>
+
+        <div class="mb-3">
+          <label for="numeroAttributi" class="form-label">Numero di attributi</label>
+          <input type="number" class="form-control" id="numeroFigli" min="0" value="1" />
+        </div>
+
+        <div id="campiAttributi" class="mb-3"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Form 3: Sinonimi -->
+    <div class="card shadow rounded-4 mb-4">
+      <div class="card-body">
+        <h2 class="card-title mb-4">Aggiungi sinonimi alla radice</h2>
+
+        <div class="mb-3">
+          <label for="numeroSinonimi" class="form-label">Numero di sinonimi</label>
+          <input type="number" class="form-control" id="numeroSinonimi" min="0" value="1" />
+        </div>
+
+        <div id="campiSinonimi" class="mb-3"></div>
+        </form>
+      </div>
+    </div>
+
+
+
+    <!-- Bottone comune per tutti e 3 -->
+    <div class="text-end mb-5">
+      <button id="btn-submit" onclick="salvaTassonomia()" class="btn btn-primary">Salva Tassonomia</button>
+    </div>
+
+  </div>
+</body>
+
 </html>
