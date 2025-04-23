@@ -71,12 +71,36 @@ function getElementiTassonomia($pdo, $id){
     echo $risultatiJSON;
 }
 
+function getNumeroElementi($pdo, $id){
+    $query = <<<SQL
+        SELECT COUNT(*) AS nElementi
+        FROM elemento AS e
+        WHERE e.id_tassonomia = :id
+    SQL;
 
-if($scelta == 1){
-    getInfoTassonomia($pdo, $id_tassonomia); //funzione che serve per ottenere le informazioni generali di una tassonomia (nome, descrizione)
+    $stmt = $pdo->prepare($query);
+    $stmt->execute(['id'=>$id]);
+    $risultato = $stmt->fetch();
+    echo $risultato[0];
 }
-elseif($scelta == 2){
-    getElementiTassonomia($pdo, $id_tassonomia); //funzione che serve per ottenere tutti gli elementi di una tassonomia
+
+
+switch ($scelta) {
+    case '1':
+        # code...
+        getInfoTassonomia($pdo, $id_tassonomia); //funzione che serve per ottenere le informazioni generali di una tassonomia (nome, descrizione)        
+        break;
+    case '2':
+        getElementiTassonomia($pdo, $id_tassonomia); //funzione che serve per ottenere tutti gli elementi di una tassonomia
+        break;
+    case '3':
+        getNumeroElementi($pdo, $id_tassonomia); // funzione per ottenere il numero di elementi (mi serve per sapere se la tassonomia è vuota)
+        break;
+    default:
+        # code...
+        break;
 }
+
+
 
 ?>

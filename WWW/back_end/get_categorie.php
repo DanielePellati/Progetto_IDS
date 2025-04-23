@@ -1,0 +1,68 @@
+<?php
+require_once("connetti_database.php");
+
+if(isset($_GET['id_tassonomia'])){
+    $idTassonomia = $_GET['id_tassonomia'];
+}
+if(isset($_GET['id_categoria'])){
+    $idCategoria = $_GET['id_categoria'];
+}
+
+$scelta = $_GET['scelta'];
+
+
+
+
+function getNomeCategoria($pdo, $idTassonomia){
+$query = <<<SQL
+    SELECT categorie.id, categorie.nome 
+    FROM categorie 
+    WHERE categorie.id_tassonomia = :id_tassonomia;
+SQL;
+
+
+    $stmt = $pdo->prepare($query);    
+    $stmt->execute(['id_tassonomia'=>$idTassonomia]);
+    // salvo i risultati della query in un array
+    $risultati = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $risultatiJSON = json_encode($risultati);
+    header('Content-Type: application/json');
+    echo $risultatiJSON;
+}
+
+
+
+
+
+function getElementiCategoria($pdo ,$idCategoria, $idTassonomia){
+    $query = <<<SQL
+        SELECT voci.voce 
+        FROM voci JOIN categorie 
+        ON voci.id_categoria = categorie.id
+        WHERE categorie.id_tassonomia = :id_tassonomia AND categorie.id = :id_categoria;
+    SQL;
+
+    $stmt = $pdo->prepare($query);    
+    $stmt->execute(['id_tassonomia'=>$idTassonomia, 'id_categoria'=>$idCategoria]);
+
+    // salvo i risultati della query in un array
+    $risultati = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $risultatiJSON = json_encode($risultati);
+    header('Content-Type: application/json');
+    echo $risultatiJSON;
+}
+
+switch ($scelta) {
+    case 0:
+        getNomeCategoria($pdo, $idTassonomia); //se passo 0, ottengo le informazioni su tutte le categorie
+        break;
+    case 1: 
+        getElementiCategoria($pdo, $idCategoria, $idTassonomia); // se passo 1, ottengo i dati di una specifica categoria
+        break;
+    default:
+        # code...
+        break;
+}
+?>

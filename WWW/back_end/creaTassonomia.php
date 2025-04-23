@@ -6,7 +6,7 @@
 
     $nome = $_POST['nome'];
     $desc = $_POST['desc'];
-
+    
 
     $query = "
         INSERT INTO `tassonomia`(`nome`, `descrizione`) 
@@ -17,5 +17,7 @@
     $stmt = $pdo->prepare($query);
     $risultato = $stmt->execute(['nome' => $nome, 'desc' => $desc]);
 
-    echo $risultato;
+    if($risultato){
+        echo $pdo->lastInsertId();
+    }
 ?>

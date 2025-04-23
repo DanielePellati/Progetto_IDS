@@ -34,11 +34,50 @@ function getValori($id, $pdo){
         WHERE elemento.id = :id
     SQL;
 
+    $queryCategoriale = <<<SQL
+        SELECT voce 
+        FROM voci
+        WHERE id = :valore
+    SQL;
+
     $stmt = $pdo->prepare($query);    
     $stmt->execute(['id'=>$id]);
 
     // salvo i risultati della query in un array
     $risultati = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $stmtCategoriale = $pdo->prepare($queryCategoriale);
+
+    // uso un riferimento per le modifiche
+    // questo serve per recuperare il valore del categoriale
+    foreach($risultati as &$elemento){
+        if($elemento['tipo'] == 2){
+            $stmtCategoriale->execute(['valore'=>$elemento['valore']]);
+            $elemento['valore'] = $stmtCategoriale->fetchColumn();
+        }
+    }
+    unset($elemento); // per sicurezza dato che la variabile mantiene un riferimento all'ultimo elemento dell'array
+
+    foreach($risultati as &$elemento){
+        switch ($elemento['tipo']) {
+            case 0:
+                $elemento['tipo'] = "Stringa";
+                break;
+            case 1:
+                $elemento['tipo'] = "Intero";
+                break;
+            case 2:
+                $elemento['tipo'] = "Categoriale";
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+
+
+
 
     $risultatiJSON = json_encode($risultati);
     header('Content-Type: application/json');
