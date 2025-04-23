@@ -207,7 +207,7 @@ function creaTabella(data, sceltaTabella) {
             popolaTabellaSinonimi(data);
             break;
         case 4: 
-            popolaTabellaValoriPrecedenti(data);
+            //popolaTabellaValoriPrecedenti(data);
             break;
         default:
             break;
