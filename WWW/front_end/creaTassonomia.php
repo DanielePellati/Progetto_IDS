@@ -6,7 +6,7 @@
 
     $nome = $_POST['nome'];
     $desc = $_POST['desc'];
-    
+
 
     $query = "
         INSERT INTO `tassonomia`(`nome`, `descrizione`) 

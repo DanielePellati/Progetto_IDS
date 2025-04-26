@@ -10,8 +10,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <!-- jQuery -->
     <script src="jquery/jquery-3.7.1.min.js"></script>
-
-    <!-- JS personalizzato -->
     <script src="/front_end/index.js"></script>
 </head>
 <body class="bg-light">
