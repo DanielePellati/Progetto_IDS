@@ -37,7 +37,7 @@ SQL;
 
 function getElementiCategoria($pdo ,$idCategoria, $idTassonomia){
     $query = <<<SQL
-        SELECT voci.voce 
+        SELECT voci.id, voci.voce 
         FROM voci JOIN categorie 
         ON voci.id_categoria = categorie.id
         WHERE categorie.id_tassonomia = :id_tassonomia AND categorie.id = :id_categoria;
