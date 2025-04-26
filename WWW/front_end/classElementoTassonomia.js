@@ -1,16 +1,8 @@
 class Elemento{
     constructor(nome, attributi = [], sinonimi = []){
         this.nome = nome;
-        this.attributi = attributi;
+        this.attributi = attributi instanceof Array ? attributi : [];
         this.sinonimi = sinonimi;
-    }
-
-    aggiungiAttributo(attributo){
-        this.attributi.push(attributo);
-    }
-
-    aggiungiSinomino(sinonimo){
-        this.sinonimi.push(sinonimo);
     }
 
     toJSON() {
