@@ -203,7 +203,6 @@ function getListaAttributi() {
   let attributo;
   let valore, tipo;
   let numAttributi = $("#numeroAttributi").val();
-  //alert(numAttributi);
   let input;
 
   // ottengo la lista partendo da interi e stringhe
@@ -276,7 +275,7 @@ function aggiungiSinonimi(listaSinonimi, idTassonomia, idElemento) {
       scelta: 3
     },
     function (data, textStatus, jqXHR) {
-      alert(data);
+      
     },
     
   );

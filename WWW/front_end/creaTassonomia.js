@@ -4,7 +4,11 @@ function salvaTassonomia(){
     const descTassonomia = $("#descTassonomia").val();
 
     if (nomeTassonomia.length == 0 || nomeTassonomia.length == undefined) {
-      alert("Inserisci il nome");
+      $('#result').html(`
+        <div class="alert alert-danger" role="alert">
+            Inserisci correttamente tutti i campi.
+        </div>
+    `);
       return;
     }
 
