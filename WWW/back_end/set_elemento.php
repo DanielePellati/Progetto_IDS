@@ -29,7 +29,7 @@ function aggiungiNome($pdo)
 
     //preparo la query 
     $stmt = $pdo->prepare($query);
-    // Ora colleghi i valori ai placeholder
+    // Collego i valori ai placeholder
     $stmt->execute([
         ':idTassonomia' => $idTassonomia,
         ':idPadre' => $idPadre,
@@ -112,7 +112,7 @@ function aggiungiSinonimi($pdo)
 
 
         if(count($listaSinonimi) == 0){
-            echo "PORCODIOCANE";
+            echo "Errore";
         }
 
         $query = "
