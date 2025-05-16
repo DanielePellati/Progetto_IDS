@@ -10,8 +10,8 @@
 
 include_once("connetti_database.php");
 // salvo l'id della tassonomia che verrà passato in query string 
-$id_tassonomia = $_GET['id'];
-$scelta = $_GET["func"];
+$id_tassonomia = isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : null);
+$scelta = isset($_GET['func']) ? $_GET['func'] : (isset($_POST['func']) ? $_POST['func'] : null);
 
 /**
  * getInfoTassonomia
