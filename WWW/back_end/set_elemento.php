@@ -69,7 +69,6 @@ function aggiungiAttributi($pdo)
                     VALUES (:idValore, :idElemento)
                 ";
 
-
                 try {
                     $stmtAssociativa = $pdo->prepare($queryAssociativa);
 
@@ -82,21 +81,13 @@ function aggiungiAttributi($pdo)
                     echo "Errore: " . $e->getMessage() + " idValore = {$idValore} idElemento = {$idElemento}";
                 }
 
-
-
-
             } else {
                 echo -1;
                 return;
             }
-
-
-
-
         }
     }
-
-
+    echo 1;
 }
 
 function aggiungiSinonimi($pdo)
@@ -111,7 +102,7 @@ function aggiungiSinonimi($pdo)
         $listaSinonimi = json_decode($_POST['listaSinonimi']) ?? [];
 
 
-        if(count($listaSinonimi) == 0){
+        if (count($listaSinonimi) == 0) {
             echo "Errore";
         }
 
@@ -135,12 +126,12 @@ function aggiungiSinonimi($pdo)
                 INSERT INTO sinonimi (principale, sinonimo)
                 VALUES (:idElemento, :idSinonimo)
             ";
-            
-            $stmtSinonimi = $pdo->prepare($querySinonimi);
-            $stmtSinonimi->bindValue(':idElemento', $idElemento);
-            $stmtSinonimi->bindValue(':idSinonimo', $idSinonimo);
-            $stmtSinonimi->execute();
-            
+
+                $stmtSinonimi = $pdo->prepare($querySinonimi);
+                $stmtSinonimi->bindValue(':idElemento', $idElemento);
+                $stmtSinonimi->bindValue(':idSinonimo', $idSinonimo);
+                $stmtSinonimi->execute();
+
             }
         }
 
@@ -149,15 +140,7 @@ function aggiungiSinonimi($pdo)
         return;
     }
 
-
-
-
-
-
-
-
-
-
+    echo 1;
 }
 
 
@@ -172,8 +155,9 @@ switch ($scelta) {
         break;
     case 3:
         aggiungiSinonimi($pdo);
+        break;
     default:
-        echo -1; //stampando -1, restituisco un tipo di errore. 
+        echo -1; //stampando -1, restituisco un errore. 
         break;
 }
 

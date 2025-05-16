@@ -30,6 +30,7 @@
                 <tr>
                     <th>Nome Tassonomia</th>
                     <th>Visualizza</th>
+                    <th>Modifica</th>
                     <th>Elimina</th>
                 </tr>
             </thead>

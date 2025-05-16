@@ -16,6 +16,39 @@
 let urlParamas = new URLSearchParams(window.location.search);
 const id = urlParamas.get("id");
 
+function sostituisciElemento(idElemento, idTassonomia, idPadre) {
+  const $form = $("<form>", {
+    method: "POST",
+    action: "./sostituisciElemento.php",
+  });
+
+  $form.append(
+    $("<input>", {
+      type: "hidden",
+      name: "idTassonomia",
+      value: idTassonomia,
+    })
+  );
+
+  $form.append(
+    $("<input>", {
+      type: "hidden",
+      name: "idElemento",
+      value: idElemento,
+    })
+  );
+
+  $form.append(
+    $("<input>", {
+      type: "hidden",
+      name: "idPadre",
+      value: idPadre,
+    })
+  );
+
+  $form.appendTo("body").submit();
+}
+
 function creaAlbero(padreId, tassonomia) {
   let figli = tassonomia.filter((el) => el.id_padre === padreId);
 
@@ -33,7 +66,7 @@ function creaAlbero(padreId, tassonomia) {
         `<button onclick="window.open ('visualizzaElemento.html?id_elemento=${figlio.id}', '_blank')" class='btn btn-primary btn-sm'>Visualizza</button>`
       );
       let btn2 = $(
-        "<button class='btn btn-secondary btn-sm'>Modifica</button>"
+        `<button onclick="sostituisciElemento(${figlio.id}, ${id}, ${figlio.id_padre})" class='btn btn-secondary btn-sm'>Sostituisci</button>`
       );
       let btn3 = $(
         `<button onclick = "aggiungiFiglio(${figlio.id})" class="btn btn-secondary btn-sm">Aggiungi figlio</button>`
@@ -53,7 +86,7 @@ function creaAlbero(padreId, tassonomia) {
         `<button onclick="window.open ('visualizzaElemento.html?id_elemento=${figlio.id}', '_blank')" class='btn btn-primary btn-sm'>Visualizza</button>`
       );
       let btn2 = $(
-        "<button class='btn btn-secondary btn-sm'>Modifica</button>"
+        `<button onclick="sostituisciElemento(${figlio.id},${id}, ${figlio.id_padre})" class='btn btn-secondary btn-sm'>Sostituisci</button>`
       );
       let btn3 = $(
         `<button onclick = "aggiungiFiglio(${figlio.id})" class="btn btn-secondary btn-sm">Aggiungi figlio</button>`
@@ -81,7 +114,9 @@ function popolaAlbero(tassonomia) {
     let btn1 = $(
       `<button onclick="window.open ('visualizzaElemento.html?id_elemento=${radice.id}', '_blank')" class='btn btn-primary btn-sm'>Visualizza</button>`
     );
-    let btn2 = $("<button class='btn btn-secondary btn-sm'>Modifica</button>");
+    let btn2 = $(
+      `<button onclick=sostituisciElemento(${radice.id},${id},${radice.id_padre})  class='btn btn-secondary btn-sm'>Sostituisci</button>`
+    );
     let btn3 = $(
       `<button onclick = "aggiungiFiglio(${radice.id})" class="btn btn-secondary btn-sm">Aggiungi figlio</button>`
     );
@@ -194,10 +229,8 @@ function rimuoviElemento(id_elemento, isPadre, idTassonomia) {
     { id_elemento: id_elemento, isPadre: isPadre },
     function (data) {
       if (data.success) {
-
         // Reload forzato con cache bypass
-        window.location.href =
-          window.location.pathname + `?id=${idTassonomia}`;
+        window.location.href = window.location.pathname + `?id=${idTassonomia}`;
       } else {
         alert("Errore nella cancellazione");
       }

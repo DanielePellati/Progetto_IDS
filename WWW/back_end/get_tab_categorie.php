@@ -10,11 +10,10 @@ $idTassonomia = (isset($_GET['idTassonomia']) && ctype_digit($_GET['idTassonomia
 
 if ($idTassonomia > 0) {
     $query = "
-    SELECT categorie.nome, voci.voce, voci.id 
-    FROM categorie 
-    JOIN voci ON categorie.id = voci.id_categoria 
-    WHERE categorie.id_tassonomia = :id
-    ORDER BY categorie.id;
+        SELECT categorie.nome, categorie.id 
+        FROM categorie 
+        WHERE categorie.id_tassonomia = 14
+        GROUP BY categorie.id;
     ";
 
     $stmt = $pdo->prepare($query);

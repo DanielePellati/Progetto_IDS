@@ -9,19 +9,27 @@ $(document).ready(function () {
   $("#indietro").attr("href", `visualizzaTassonomia.html?id=${idTassonomia}`);
 });
 
-function eliminaElemento(idVoce) {
+function eliminaCategoria(idCategoria) {
+  // Inizio prendendo gli id di tutti gli elementi di una categoria
+  // Controllo che non siano nella tabella valore
+  // Se lo sono: blocco l'eliminazione.
+  // Se non lo sono: procedo all'eliminazione
+
   $.post(
-    "../back_end/elimina_voceCategoria.php",
-    { idVoce: idVoce },
+    "../back_end/rimuovi_categoria.php",
+    { idCategoria: idCategoria },
     function (data) {
-      if (data.esito == -2) {
-        alert("Cancellazione impossibile. L'elemento è in uso");
-      } else if (data.esito == -1) {
-        alert("Elemento da cancellare non valido");
-      }else if (data.esito == -3){
-        alert("Errore nella cancellazione");
-      }else{
-        window.location.replace(window.location.href);
+      if (data.risultato == -1) alert("Errore: categoria non valida");
+      else if (data.risultato == -2) alert("Errore nella ricerca degli ids");
+      else if (data.risultato == -3)
+        alert("Errore nel controllo della categoria");
+      else if (data.risultato == -4)
+        alert(
+          "Impossibile cancellare la categoria: almeno un elemento è in uso"
+        );
+      else if (data.risultato == -5) alert("Errore nella cancellazione");
+      else{
+        
       }
     },
     "json"
@@ -30,10 +38,21 @@ function eliminaElemento(idVoce) {
 
 function creaTabella(categorie) {
   let tabella;
+  let bottoneElimina;
+  let bottoneVisualizza;
 
   categorie.forEach((categoria) => {
-    bottoneElimina = `
-  <button class="btn btn-outline-primary btn-sm" onclick = "eliminaElemento(${categoria.id})" title="Elimina" style="cursor: pointer;">
+    bottoneVisualizza = `
+    <a 
+      class = "btn btn-outline-primary btn-sm" 
+      href="visualizzaCategoria.html?idCategoria=${categoria.id}" 
+      title="visualizza"
+      >
+      <i class="bi bi-eye"></i>
+      </a>
+    `;
+
+    bottoneElimina = `<button class="btn btn-outline-primary btn-sm" onclick = "eliminaCategoria(${categoria.id})" title="Elimina" style="cursor: pointer;">
     <i class="bi bi-trash"></i>
   </button>
 `;
@@ -41,7 +60,7 @@ function creaTabella(categorie) {
     tabella += `
             <tr>
                 <td> ${categoria.nome} </td> 
-                <td> ${categoria.voce} </td>
+                <td> ${bottoneVisualizza} </td>
                 <td> ${bottoneElimina} </td>
         `;
   });
