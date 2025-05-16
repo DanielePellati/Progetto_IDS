@@ -14,6 +14,10 @@ var templateRiga = `
             </a>
         </td>
         <td>
+          <a onclick = "modificaInfoTassonomia({idTassonomia})" style="cursor: pointer;" class="btn btn-outline-primary btn-sm" title="Modifica">
+            <i class = "bi bi-pencil"></i>
+        </td>
+        <td>
             <a onclick = "eliminaTassonomia({idTassonomia})" style="cursor: pointer;" class="btn btn-outline-primary btn-sm" title="Elimina">
                 <i class="bi bi-trash"></i>
             </a>
@@ -42,19 +46,19 @@ $(document).ready(function () {
 });
 
 function eliminaTassonomia(idTassonomia) {
-    
   // Prima chiamata per ottenere i dati della tassonomia
   $.post(
     "../back_end/elimina_tassonomia.php",
     { idTassonomia: idTassonomia },
     function (data) {
       if (data.esito < 0) {
-        alert("Errore durante l'ottenimento dei dati per l'eliminazione! " + data.esito);
-      }
-      else if(data.esito == 4){
+        alert(
+          "Errore durante l'ottenimento dei dati per l'eliminazione! " +
+            data.esito
+        );
+      } else if (data.esito == 4) {
         rimossaConSuccesso();
-      }
-      else {
+      } else {
         // Passa i dati necessari alla funzione di pulizia
         pulisciTassonomia(data.idRadice, data.isPadre, idTassonomia);
       }
@@ -96,7 +100,24 @@ function eliminaTassonomiaDefinitiva(idTassonomia) {
   );
 }
 
-function rimossaConSuccesso(){
-    alert("Rimossa con successo");
-    window.location.replace(window.location.href);
+function rimossaConSuccesso() {
+  alert("Rimossa con successo");
+  window.location.replace(window.location.href);
+}
+
+function modificaInfoTassonomia(idTassonomia) {
+  const $form = $("<form>", {
+    method: "POST",
+    action: "../front_end/modificaInfoTassonomia.php",
+  });
+
+  $form.append(
+    $("<input>", {
+      type: "hidden",
+      name: "idTassonomia",
+      value: `${idTassonomia}`,
+    })
+  );
+
+  $form.appendTo("body").submit();
 }
