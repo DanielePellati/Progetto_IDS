@@ -1,0 +1,15 @@
+@startuml diagramma_distribuzione
+title Diagramma di Distribuzione Docker Webapp
+
+node "Host Locale" {
+  node "Docker Engine" {
+    node "dockerweb\n(Backend)" as backend
+    node "mysql\n(Database)" as mysql
+    node "phpmyadmin\n(Frontend DB)" as phpmyadmin
+  }
+}
+
+backend --> mysql : query SQL
+phpmyadmin --> mysql : interfaccia amministrativa
+
+@enduml
