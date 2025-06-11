@@ -1,0 +1,34 @@
+@startuml package_nomiPrecedenti
+package "Bootstrap" {
+  [bootstrap.min.css]
+  [bootstrap.bundle.min.js]
+  [bootstrap-icons.css]
+}
+
+package "jQuery" {
+  [jquery-3.7.1.min.js]
+}
+
+package "Nomi Precedenti - Front-end" {
+  [nomiPrecedenti.html]
+  [nomiPrecedenti.js]
+}
+
+package "Back-end" {
+  [get_nomi_precedenti.php]
+  [connetti_database.php]
+}
+
+' Inclusioni statiche da HTML
+[nomiPrecedenti.html] --> [bootstrap.min.css]
+[nomiPrecedenti.html] --> [bootstrap.bundle.min.js]
+[nomiPrecedenti.html] --> [bootstrap-icons.css]
+[nomiPrecedenti.html] --> [jquery-3.7.1.min.js]
+[nomiPrecedenti.html] --> [nomiPrecedenti.js]
+
+' Chiamata AJAX
+[nomiPrecedenti.js] --> [get_nomi_precedenti.php]
+
+' Connessione al database
+[get_nomi_precedenti.php] --> [connetti_database.php]
+@enduml

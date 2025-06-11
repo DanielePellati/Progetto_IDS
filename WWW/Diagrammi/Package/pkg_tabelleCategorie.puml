@@ -1,0 +1,34 @@
+@startuml package_tabellaCategorie
+package "Bootstrap" {
+  [bootstrap.min.css]
+  [bootstrap.bundle.min.js]
+  [bootstrap-icons.css]
+}
+
+package "jQuery" {
+  [jquery-3.7.1.min.js]
+}
+
+package "Tabelle Categorie - Front-end" {
+  [tabelleCategorie.html]
+  [tabellaCategoria.js]
+}
+
+package "Back-end" {
+  [get_tab_categorie.php]
+  [connetti_database.php]
+}
+
+' Inclusioni statiche da HTML
+[tabelleCategorie.html] --> [bootstrap.min.css]
+[tabelleCategorie.html] --> [bootstrap.bundle.min.js]
+[tabelleCategorie.html] --> [bootstrap-icons.css]
+[tabelleCategorie.html] --> [jquery-3.7.1.min.js]
+[tabelleCategorie.html] --> [tabellaCategoria.js]
+
+' JS che fa richieste AJAX
+[tabellaCategoria.js] --> [get_tab_categorie.php]
+
+' Inclusione della connessione al DB
+[get_tab_categorie.php] --> [connetti_database.php]
+@enduml

@@ -1,0 +1,44 @@
+@startuml package_sostiutuisciElemento
+package "Bootstrap" {
+  [bootstrap.min.css]
+  [bootstrap.bundle.min.js]
+  [bootstrap-icons.css]
+}
+
+package "jQuery" {
+  [jquery-3.7.1.min.js]
+}
+
+package "Sostituisci Elemento - Front-end" {
+  [creaTassonomia.css]
+  [classAttributoElemento.js]
+  [sostituisciElemento.js]
+  [sostituisciElemento.php]
+}
+
+package "Back-end" {
+  [get_categorie.php]
+  [set_elemento.php]
+  [sostituzioneElemento.php]
+  [connetti_database.php]
+}
+
+' Inclusioni statiche da HTML/PHP
+[sostituisciElemento.php] --> [bootstrap.min.css]
+[sostituisciElemento.php] --> [bootstrap.bundle.min.js]
+[sostituisciElemento.php] --> [bootstrap-icons.css]
+[sostituisciElemento.php] --> [jquery-3.7.1.min.js]
+[sostituisciElemento.php] --> [creaTassonomia.css]
+[sostituisciElemento.php] --> [classAttributoElemento.js]
+[sostituisciElemento.php] --> [sostituisciElemento.js]
+
+' JS che effettua chiamate AJAX
+[sostituisciElemento.js] --> [get_categorie.php]
+[sostituisciElemento.js] --> [set_elemento.php]
+[sostituisciElemento.js] --> [sostituzioneElemento.php]
+
+' Inclusione della connessione al DB
+[get_categorie.php] --> [connetti_database.php]
+[set_elemento.php] --> [connetti_database.php]
+[sostituzioneElemento.php] --> [connetti_database.php]
+@enduml

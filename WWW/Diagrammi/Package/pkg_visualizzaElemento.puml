@@ -1,0 +1,33 @@
+@startuml package_visualizzaElemento
+package "Bootstrap" {
+  [bootstrap.min.css]
+  [bootstrap.bundle.min.js]
+  [bootstrap-icons.css]
+}
+
+package "jQuery" {
+  [jquery-3.7.1.min.js]
+}
+
+package "Visualizza Elemento - Front-end" {
+  [visualizzaElemento.php]
+  [visualizzaElemento.js]
+}
+
+package "Back-end" {
+  [get_elemento.php]
+  [connetti_database.php]
+}
+
+' Dipendenze dalla pagina PHP
+[visualizzaElemento.html] --> [bootstrap.min.css]
+[visualizzaElemento.html] --> [bootstrap.bundle.min.js]
+[visualizzaElemento.html] --> [bootstrap-icons.css]
+[visualizzaElemento.html] --> [jquery-3.7.1.min.js]
+[visualizzaElemento.html] --> [visualizzaElemento.js]
+
+' Relazione JS -> PHP
+[visualizzaElemento.js] --> [get_elemento.php] : AJAX request
+[get_elemento.php] --> [connetti_database.php] : include
+
+@enduml

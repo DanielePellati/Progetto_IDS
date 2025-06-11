@@ -1,0 +1,33 @@
+@startuml package_visualizzaTassonomia
+package "Visualizza Tassonomia - Front-end" {
+  [visualizzaTassonomia.html]
+  [albero.css]
+  [bootstrap.min.css]
+  [jquery-3.7.1.min.js]
+  [bootstrap.bundle.min.js]
+  [visualizzaTassonomia.js]
+  [albero.js]
+}
+
+package "Visualizza Tassonomia - Back-end PHP" {
+  [get_tassonomia.php]
+  [rimuovi_elemento.php]
+  [connetti_database.php]
+}
+
+' Inclusioni HTML
+[visualizzaTassonomia.html] --> [bootstrap.min.css]
+[visualizzaTassonomia.html] --> [albero.css]
+[visualizzaTassonomia.html] --> [jquery-3.7.1.min.js]
+[visualizzaTassonomia.html] --> [bootstrap.bundle.min.js]
+[visualizzaTassonomia.html] --> [visualizzaTassonomia.js]
+[visualizzaTassonomia.html] --> [albero.js]
+
+' Inclusioni JS -> PHP
+[visualizzaTassonomia.js] --> [get_tassonomia.php]
+[visualizzaTassonomia.js] --> [rimuovi_elemento.php]
+
+' Dipendenze PHP -> connessione al DB
+[get_tassonomia.php] --> [connetti_database.php]
+[rimuovi_elemento.php] --> [connetti_database.php]
+@enduml

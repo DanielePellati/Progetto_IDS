@@ -1,0 +1,39 @@
+@startuml package_modificaInfoTassonomia
+package "Bootstrap" {
+  [bootstrap.min.css]
+  [bootstrap.bundle.min.js]
+  [bootstrap-icons.css]
+}
+
+package "jQuery" {
+  [jquery-3.7.1.min.js]
+}
+
+package "Modifica Info Tassonomia - Front-end" {
+  [modificaInfoTassonomia.php]
+  [creaTassonomia.css]
+  [modificaInfoTassonomia.js]
+}
+
+package "Back-end" {
+  [salvaModificheInfo.php]
+  [get_tassonomia.php]
+  [connetti_database.php]
+}
+
+' Inclusioni statiche da HTML
+[modificaInfoTassonomia.php] --> [bootstrap.min.css]
+[modificaInfoTassonomia.php] --> [bootstrap.bundle.min.js]
+[modificaInfoTassonomia.php] --> [bootstrap-icons.css]
+[modificaInfoTassonomia.php] --> [jquery-3.7.1.min.js]
+[modificaInfoTassonomia.php] --> [creaTassonomia.css]
+[modificaInfoTassonomia.php] --> [modificaInfoTassonomia.js]
+
+' Chiamate JS
+[modificaInfoTassonomia.js] --> [salvaModificheInfo.php]
+[modificaInfoTassonomia.js] --> [get_tassonomia.php]
+
+' Connessione al database
+[salvaModificheInfo.php] --> [connetti_database.php]
+[get_tassonomia.php] --> [connetti_database.php]
+@enduml

@@ -1,0 +1,39 @@
+@startuml package_creaElemento
+package "Bootstrap" {
+  [bootstrap.min.css]
+  [bootstrap.bundle.min.js]
+  [bootstrap-icons.css]
+}
+
+package "jQuery" {
+  [jquery-3.7.1.min.js]
+}
+
+package "Crea Elemento - Front-end" {
+  [creaTassonomia.css]
+  [classAttributoElemento.js]
+  [creaElemento.js]
+}
+
+package "Back-end" {
+  [set_elemento.php]
+  [get_categorie.php]
+  [connetti_database.php]
+}
+
+' Inclusioni statiche da HTML o JS
+[creaElemento.js] --> [jquery-3.7.1.min.js]
+[creaElemento.js] --> [bootstrap.min.css]
+[creaElemento.js] --> [bootstrap.bundle.min.js]
+[creaElemento.js] --> [bootstrap-icons.css]
+[creaElemento.js] --> [creaTassonomia.css]
+[creaElemento.js] --> [classAttributoElemento.js]
+
+' Chiamate PHP da JS
+[creaElemento.js] --> [set_elemento.php]
+[creaElemento.js] --> [get_categorie.php]
+
+' Connessione al DB
+[set_elemento.php] --> [connetti_database.php]
+[get_categorie.php] --> [connetti_database.php]
+@enduml
