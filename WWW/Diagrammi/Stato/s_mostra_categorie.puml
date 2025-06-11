@@ -1,0 +1,14 @@
+@startuml Stato_Mostra_Categorie
+
+[*] --> AttesaClick
+
+AttesaClick --> InviaRichiestaCategorie : clic su "Mostra categoria"
+InviaRichiestaCategorie --> AttesaRispostaServer
+AttesaRispostaServer --> CategorieMostrate : risposta OK
+AttesaRispostaServer --> ErroreCaricamento : errore risposta
+
+CategorieMostrate --> [*]
+ErroreCaricamento --> ReindirizzamentoIndex
+ReindirizzamentoIndex --> [*]
+
+@enduml

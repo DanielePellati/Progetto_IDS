@@ -1,0 +1,28 @@
+@startuml Stato_Sostituisci_Elemento
+
+[*] --> AttesaClickSostituisci
+
+AttesaClickSostituisci --> CaricamentoPaginaSostituzione : clic su "Sostituisci"
+CaricamentoPaginaSostituzione --> AttesaIDValido
+
+AttesaIDValido --> InserimentoDati : id valido
+AttesaIDValido --> ErroreID : id non valido
+
+InserimentoDati --> ValidazioneDati
+ValidazioneDati --> InvioDatiAlServer : dati validi
+ValidazioneDati --> ErroreDati : dati non validi
+
+InvioDatiAlServer --> SalvataggioServer
+SalvataggioServer --> SuccessoSalvataggio : inserimento corretto
+SalvataggioServer --> ErroreSalvataggio : inserimento fallito
+
+SuccessoSalvataggio --> VisualizzaTassonomia
+VisualizzaTassonomia --> [*]
+
+ErroreID --> MostraErroreRitornaIndex
+ErroreDati --> MostraErroreRitornaIndex
+ErroreSalvataggio --> MostraErroreRitornaIndex
+
+MostraErroreRitornaIndex --> [*]
+
+@enduml

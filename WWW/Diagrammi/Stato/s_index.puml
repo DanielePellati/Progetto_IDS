@@ -1,0 +1,12 @@
+@startuml Stato_Index_Tassonomie
+
+[*] --> InCaricamento
+
+InCaricamento --> AttesaRisposta : invia richiesta al DB
+AttesaRisposta --> MostraTassonomie : risposta OK
+AttesaRisposta --> ErroreCaricamento : risposta fallita
+
+MostraTassonomie --> [*]
+ErroreCaricamento --> [*]
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml Stato_Crea_Categoria
+
+[*] --> InAttesaClick
+
+InAttesaClick --> FormAperto : click su "Inserisci categoria"
+FormAperto --> InValidazione : submit
+
+InValidazione --> ErroreValidazione : dati non validi
+ErroreValidazione --> FormAperto : rimane nella pagina
+
+InValidazione --> InvioServer : dati validi
+
+InvioServer --> Completato : inserimento riuscito
+Completato --> [*]
+
+InvioServer --> ErroreServer : errore server/DB
+ErroreServer --> Index : ritorno alla pagina di scelta
+
+@enduml
