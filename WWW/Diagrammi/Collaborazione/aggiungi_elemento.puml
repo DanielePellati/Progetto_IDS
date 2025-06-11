@@ -1,0 +1,26 @@
+@startuml Aggiungi_elemento
+
+object Utente
+object Index
+object Aggiunta
+object Validatore
+object Server
+object DB
+object Visualizza
+
+Utente -> Index : 1. clic su "Aggiungi"
+Index -> Aggiunta : 2. redirect alla pagina di aggiunta
+Utente -> Aggiunta : 3. inserisce dati (nome, attributi*, sinonimi*)
+Aggiunta -> Validatore : 4. richiesta validazione
+Validatore -> Aggiunta : 5. esito validazione
+
+Aggiunta -> Server : 6. invio dati validati
+Server -> DB : 7. inserisci nel DB
+DB -> Server : 8. conferma inserimento
+
+Server -> Visualizza : 9a. redirect se ok
+Server -> Index : 9b. errore e redirect a index (in caso di errore DB)
+Validatore -> Index : 5b. errore validazione, torna a index
+Aggiunta -> Index : 3b. ID non valido, torna a index
+
+@enduml
