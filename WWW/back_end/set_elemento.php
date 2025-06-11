@@ -1,5 +1,37 @@
 <?
 
+/**
+ * Gestione tassonomia: inserimento di nomi, attributi e sinonimi
+ *
+ * Questo script riceve dati tramite POST per eseguire diverse operazioni sulla tassonomia:
+ *  - inserire un nuovo elemento (nome)
+ *  - aggiungere attributi a un elemento esistente
+ *  - aggiungere sinonimi a un elemento esistente
+ *
+ * Parametri POST attesi a seconda dell'operazione scelta:
+ *  - scelta (int): 1 per inserire nome, 2 per aggiungere attributi, 3 per aggiungere sinonimi
+ *  
+ *  Per inserire un nome:
+ *    - idTassonomia (int)
+ *    - idPadre (int|null)
+ *    - nomeElemento (string)
+ *
+ *  Per aggiungere attributi:
+ *    - idElemento (int)
+ *    - listaAttributi (JSON array di oggetti con proprietà "valore" e "tipo")
+ *
+ *  Per aggiungere sinonimi:
+ *    - idElemento (int)
+ *    - idTassonomia (int)
+ *    - idPadre (int|null)
+ *    - listaSinonimi (JSON array di stringhe)
+ *
+ * Restituisce:
+ *  - id dell'elemento inserito (per scelta=1)
+ *  - 1 in caso di successo (per scelta=2 e 3)
+ *  - -1 in caso di errore
+ */
+
 require_once("./connetti_database.php");
 
 $scelta; // scelta per l'operazione da eseguire (inserisci nome, inserisci attributi, interisci sinonimi)
@@ -9,6 +41,12 @@ $scelta = $_POST['scelta'] ?? null;
 
 $idElementoAggiunto;
 
+/**
+ * aggiungiNome
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @return int ritorna -1 in caso di errore, negli altri casi l'id dell'elemento inserito
+ */
 function aggiungiNome($pdo)
 {
 
@@ -39,6 +77,12 @@ function aggiungiNome($pdo)
     return $pdo->lastInsertId();
 }
 
+/**
+ * aggiungiAttributi
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @return void
+ */
 function aggiungiAttributi($pdo)
 {
 
@@ -90,6 +134,12 @@ function aggiungiAttributi($pdo)
     echo 1;
 }
 
+/**
+ * aggiungiSinonimi
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @return void
+ */
 function aggiungiSinonimi($pdo)
 {
 

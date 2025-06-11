@@ -1,7 +1,36 @@
 <?php
 
+/**
+ * Gestione sostituzione nome elemento con storico e pulizia dati associati
+ *
+ * Questo script permette di aggiornare il nome di un elemento esistente nella tassonomia,
+ * salvandone il nome precedente nella tabella 'nomi_precedenti', eliminando i sinonimi
+ * collegati e rimuovendo i valori (attributi) associati all'elemento.
+ *
+ * Riceve tramite POST i seguenti parametri:
+ *  - scelta (int): indica l'operazione da eseguire (1 = sostituzione nome)
+ *  - id_elemento (int): id dell'elemento da modificare
+ *  - nuovoNome (string): nuovo nome da assegnare all'elemento
+ *
+ * Restituisce un JSON con:
+ *  - risultato (int):
+ *      1 = successo
+ *      -1 = id_elemento non valido o mancante
+ *      -2 = scelta mancante o non gestita
+ *      -3 = nuovoNome mancante o vuoto
+ *      -4 = errore in transazione PDO, con messaggio in 'errore'
+ */
+
+
 require_once "./connetti_database.php";
 
+/**
+ * copia_e_sostiusciNome
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @param  int $idElemento id dell'elemento da sostituire
+ * @return array ritorno un array con risultato ed eventuali errori
+ */
 function copia_e_sostiusciNome($pdo, $idElemento)
 {
     // Prende il nuovo nome passato tramite POST

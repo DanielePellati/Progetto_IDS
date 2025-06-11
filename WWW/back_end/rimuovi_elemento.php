@@ -79,7 +79,7 @@ function filtraSinonimi($pdo, $listaIDs)
  * Ottiene l'elenco degli ID dei valori associati agli elementi forniti.
  *
  * @param PDO $pdo Istanza della connessione al database
- * @param array $listaIDsPrincipali Lista di ID degli elementi principali
+ * @param array | int $listaIDsPrincipali Lista di ID degli elementi principali
  * @return array|false Lista degli ID dei valori associati o false in caso di errore
  */
 function getValoriAssociati($pdo, $listaIDsPrincipali)
@@ -119,6 +119,13 @@ function getValoriAssociati($pdo, $listaIDsPrincipali)
 }
 
 
+/**
+ * copia_E_rimuoviElementi
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @param  array | int $listaIDs lista degli id da copiare e rimuovere (int in caso di un singolo elemento)
+ * @return bool ritorno il risultato dell'eliminazione
+ */
 function copia_E_rimuoviElementi($pdo, $listaIDs)
 {
 
@@ -166,6 +173,13 @@ function copia_E_rimuoviElementi($pdo, $listaIDs)
     return true; // Operazione completata con successo
 }
 
+/**
+ * rimuoviSinonimi
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @param  array $arrayIDsSinonimi array contenete gli Ids dei sinonimi
+ * @return bool restituisce il risultato dell'eliminazione
+ */
 function rimuoviSinonimi($pdo, $arrayIDsSinonimi)
 {
     if (empty($arrayIDsSinonimi)) {
@@ -194,6 +208,13 @@ function rimuoviSinonimi($pdo, $arrayIDsSinonimi)
     return true;
 }
 
+/**
+ * rimuoviValori
+ *
+ * @param  \PDO $pdo connessione al database
+ * @param  array $listaValori lista id valori
+ * @return bool ritorno il risultato della cancellazione
+ */
 function rimuoviValori($pdo, $listaValori)
 {
 
@@ -223,6 +244,13 @@ function rimuoviValori($pdo, $listaValori)
 }
 
 // Funzione per ottenere la lista dei sinonimi di un singolo elemento
+/**
+ * getSinonimi
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @param  int $idElemento id dell'elemento di cui cercare i sinonimi
+ * @return array ritorno la lista degli IDs dei sinonimi
+ */
 function getSinonimi($pdo, $idElemento)
 {
     $querySinonimi = "
@@ -239,6 +267,13 @@ function getSinonimi($pdo, $idElemento)
 }
 
 
+/**
+ * eliminaNodo
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @param  int $idElemento id dell'elemento da eliminare
+ * @return bool ritorno il risultato dell'eliminazione
+ */
 function eliminaNodo($pdo, $idElemento)
 {
 
@@ -303,6 +338,13 @@ function eliminaNodo($pdo, $idElemento)
     return true;
 }
 
+/**
+ * eliminaFoglia
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @param  int $idElemento id dell'elemento da eliminare
+ * @return bool ritorno il risultato dell'elimnazione
+ */
 function eliminaFoglia($pdo, $idElemento)
 {
     /**

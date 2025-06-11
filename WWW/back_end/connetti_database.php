@@ -1,7 +1,22 @@
 <?php
+
+/**
+ * Connessione al database MySQL tramite PDO
+ *
+ * Questo file si occupa di creare una connessione al database MySQL
+ * utilizzando PDO, con configurazione adatta a un ambiente Docker.
+ * La connessione viene stabilita al database "progetto_IGS" sul servizio
+ * "db" (nome host Docker), con utente "root" e password "root".
+ *
+ * In caso di errore nella connessione, viene generata un'eccezione PDOException.
+ *
+ * Variabile globale esportata:
+ *  - $pdo: istanza PDO per l'accesso al database.
+ */
+
+
 // Definizione dei parametri di connessione al database
-$server = "localhost"; // Nome del server (non utilizzato nella connessione effettiva)
-//$port = "3306"; // Porta del database MySQL (commentata e non utilizzata)
+$server = "localhost"; // Nome del server
 $user = "root"; // Nome utente per l'accesso al database
 $pass = "root"; // Password dell'utente
 $db = "progetto_IGS"; // Nome del database da utilizzare

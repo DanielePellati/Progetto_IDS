@@ -2,8 +2,31 @@
 
 require_once "./connetti_database.php";
 
+/**
+ * Gestisce la richiesta di eliminazione di una categoria.
+ *
+ * Riceve un ID via POST, controlla se le voci associate sono in uso, 
+ * ed eventualmente elimina la categoria dal database.
+ * 
+ * Ritorna un JSON con l'esito dell'operazione:
+ * - -1: ID non valido
+ * - -2: Errore durante il recupero degli ID delle voci
+ * - -3: Errore nella query di controllo
+ * - -4: La categoria non può essere eliminata (è in uso)
+ * - -5: Errore durante l'eliminazione
+ * - altrimenti, nessun output in caso di eliminazione riuscita
+ *
+ * Richiede una connessione PDO ($pdo) e un parametro POST 'idCategoria'.
+ */
 
 
+/**
+ * getIDsVoci
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @param  int $idCategoria id della categoria da cui ottengo gli ID delle voci
+ * @return array | int ritorno o l'array con gli IDs o un numero di errore
+ */
 function getIDsVoci($pdo, $idCategoria)
 {
     $query = <<<SQL
@@ -30,6 +53,13 @@ function getIDsVoci($pdo, $idCategoria)
     }
 }
 
+/**
+ * controllaCategoria
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @param  array $arrayIdsVoci array contenente gli IDs da controllare.
+ * @return bool | int Se anche solo uno è utilizzato, ritorno true. Se ci sono errori, ritorno un codice di errore
+ */
 function controllaCategoria($pdo, $arrayIdsVoci)
 {
 
@@ -51,6 +81,13 @@ function controllaCategoria($pdo, $arrayIdsVoci)
 }
 
 
+/**
+ * eliminaCategoria
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @param  int $idCategoria della categoria da rimuovere
+ * @return bool ritorno il risultato dell'eliminazione
+ */
 function eliminaCategoria($pdo, $idCategoria){
     $query = <<<SQL
         DELETE FROM categorie

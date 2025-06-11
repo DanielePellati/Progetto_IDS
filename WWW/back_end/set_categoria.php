@@ -3,6 +3,14 @@
 require_once("./connetti_database.php");
 
 
+/**
+ * inserisciCategoria
+ *
+ * @param  \PDO $pdo connessione al database
+ * @param  string $nome nome della categoria da creare
+ * @param  int $idTassonomia id della tassonomia a cui associarla
+ * @return int ritorno l'id della nuova tassonomia o -1 in caso di errori
+ */
 function inserisciCategoria($pdo, $nome, $idTassonomia): int
 {
 
@@ -23,6 +31,14 @@ function inserisciCategoria($pdo, $nome, $idTassonomia): int
 
 }
 
+/**
+ * inserisciVoci
+ *
+ * @param  \PDO $pdo connessione al db
+ * @param  array $listaVoci lista delle voci da inserire
+ * @param  int $idCategoria della categoria a cui associare le voci
+ * @return bool ritorno il risultato dell'inserimento
+ */
 function inserisciVoci($pdo, $listaVoci, $idCategoria): bool
 {
     $placeholders = [];
@@ -45,6 +61,12 @@ function inserisciVoci($pdo, $listaVoci, $idCategoria): bool
 }
 
 
+/**
+ * controllaDati
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @return bool restituisce il risultato del controllo sui dati (se sono inseriti correttamente)
+ */
 function controllaDati($pdo)
 {
 
