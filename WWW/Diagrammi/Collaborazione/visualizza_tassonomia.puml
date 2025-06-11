@@ -1,0 +1,23 @@
+@startuml Visualizza_tassonomia
+
+object Utente
+object Interfaccia
+object Server
+object Database
+object PaginaDettagli
+object Index
+
+Utente -> Interfaccia : 1. clic su "Visualizza"
+Interfaccia -> Server : 2. richiesta caricamento pagina dettagli
+Server -> Database : 3. recupera dettagli tassonomia
+Database -> Server : 4. risposta dettagli
+
+' Flusso positivo
+Server --> PaginaDettagli : 5a. se risposta OK, mostra pagina dettagli
+PaginaDettagli -> Utente : 6a. visualizza dettagli tassonomia
+
+' Flusso errore
+Server --> Index : 5b. se errore, mostra messaggio e redirect
+Index -> Utente : 6b. visualizza pagina di scelta
+
+@enduml

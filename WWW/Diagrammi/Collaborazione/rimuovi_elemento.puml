@@ -1,0 +1,29 @@
+@startuml Rimuovi_elemento_Collaboration
+
+object BC as "BrowserClient"
+object Presenter as "Presenter_JS"
+object Server as "WebServer"
+object Model as "Model_PHP"
+object View as "View_HTML_CSS"
+
+BC -- Presenter
+Presenter -- Server
+Server -- Model
+Presenter -- View
+View -- BC
+
+BC -> Presenter : 1. clicca "Rimuovi"
+Presenter -> BC : 2. chiede conferma
+BC -> Presenter : 3. conferma sì o no
+
+Presenter -> Server : 4. invia richiesta cancellazione
+Server -> Model : 5. elimina elemento
+Model -> Server : 6. conferma o errore
+Server -> Presenter : 7. conferma o errore
+Presenter -> View : 8. mostra messaggio
+View -> BC : 9. aggiorna interfaccia
+
+Presenter -> View : 10. mostra annullamento (se conferma no)
+View -> BC : 11. aggiorna interfaccia
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml Elimina_tassonomia
+
+object Utente
+object Interfaccia
+object Server
+object Database
+object UI
+
+Utente -> Interfaccia : 1. clic su "Elimina"
+Interfaccia -> Server : 2. invia richiesta eliminazione
+Server -> Database : 3. pulizia dei dati associati
+
+Database -> Server : 4a. conferma pulizia riuscita
+Server -> Database : 5a. elimina tassonomia
+Database -> Server : 6a. conferma rimozione riuscita
+Server -> UI : 7a. rimuove graficamente l'elemento
+
+Database -> Server : 4b. errore nella pulizia
+Server -> UI : 5b. stampa errore
+
+Database -> Server : 6b. errore nella rimozione
+Server -> UI : 7b. stampa errore
+
+@enduml

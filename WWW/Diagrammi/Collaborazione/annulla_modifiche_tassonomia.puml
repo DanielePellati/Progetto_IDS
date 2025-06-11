@@ -1,0 +1,15 @@
+@startuml annulla_modifiche
+' Diagramma di collaborazione UML (communication)
+
+object Utente
+object Form
+object DialogoConferma
+object Index
+
+Utente -> Form : 1. clic su "Annulla"
+Form -> DialogoConferma : 2. chiede conferma
+
+DialogoConferma -> Index : 3a. conferma → redirect a index
+DialogoConferma -> Form : 3b. annulla → resta nel form
+
+@enduml

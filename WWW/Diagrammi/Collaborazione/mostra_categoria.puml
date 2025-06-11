@@ -1,0 +1,23 @@
+@startuml Mostra_categorie
+
+object Utente
+object Client
+object Server
+object Database
+object TabellaCategorie
+object Index
+
+Utente -> Client : 1. clic su "Mostra categoria"
+Client -> Server : 2. invia richiesta lista categorie
+Server -> Database : 3. recupera lista categorie
+Database -> Server : 4. risposta lista categorie
+
+' Flusso positivo
+Server --> TabellaCategorie : 5a. se risposta OK, costruisce tabella
+TabellaCategorie -> Utente : 6a. mostra tabella categorie
+
+' Flusso errore
+Server --> Index : 5b. se errore, mostra messaggio e redirect
+Index -> Utente : 6b. visualizza pagina di scelta
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml Sostiuisci_elemento
+
+object Utente
+object PaginaSostituzione
+object Server
+object Database
+object PaginaVisualizza
+object Index
+
+Utente -> PaginaSostituzione : 1. clic su "Sostituisci"
+PaginaSostituzione -> Utente : 2. mostra form di sostituzione
+
+Utente -> PaginaSostituzione : 3. inserisce dati (nome, attributi*, sinonimi*)
+PaginaSostituzione -> PaginaSostituzione : 4. valida dati
+
+PaginaSostituzione -> Server : 5a. dati validi, invia dati
+Server -> Server : 6a. salva nome precedente
+Server -> Database : 7a. modifica dati nel DB
+
+Database -> Server : 8a. inserimento/modifica corretto
+Server -> PaginaVisualizza : 9a. redirect alla pagina di visualizza tassonomia
+
+Database -> Server : 8b. errore nell'inserimento/modifica
+Server -> Index : 9b. mostra messaggio di errore e redirect
+
+PaginaSostituzione -> Utente : 5b. dati non validi → mostra errore e redirect a scelta
+
+@enduml

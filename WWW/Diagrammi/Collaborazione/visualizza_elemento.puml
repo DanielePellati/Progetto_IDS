@@ -1,0 +1,23 @@
+@startuml visualizza_elemento
+
+
+object Utente
+object Interfaccia
+object Server
+object Database
+object PaginaVisualizzazione
+object Index
+
+Utente -> Interfaccia : 1. clic su "Visualizza"
+Interfaccia -> Server : 2. richiesta dati
+Server -> Database : 3. recupera dati
+Database -> Server : 4. dati recuperati?
+
+' Condizione sul flusso
+Server --> PaginaVisualizzazione : 5a. se dati OK, invia dati per stampa
+PaginaVisualizzazione -> Utente : 6a. mostra dati divisi per tabelle
+
+Server --> Index : 5b. se errore, mostra messaggio di errore e redirect
+Index -> Utente : 6b. visualizza pagina di scelta
+
+@enduml

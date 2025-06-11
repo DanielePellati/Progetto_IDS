@@ -1,0 +1,20 @@
+@startuml Salvataggio_modifiche
+
+
+object Utente
+object Form
+object Server
+object Database
+object Index
+
+Utente -> Form : 1. clic su "Salva"
+Form -> Server : 2. invia dati modificati
+Server -> Database : 3. valida e aggiorna i dati
+
+Database -> Server : 4a. conferma salvataggio riuscito
+Server -> Index : 5a. redirect alla pagina di scelta
+
+Database -> Server : 4b. errore nel salvataggio
+Server -> Form : 5b. mostra messaggio di errore e resta nel form
+
+@enduml

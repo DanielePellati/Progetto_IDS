@@ -1,0 +1,23 @@
+@startuml visualizza_categoria
+
+object Utente
+object Client
+object Server
+object Database
+object TabellaCategoria
+object Index
+
+Utente -> Client : 1. clic su "Visualizza"
+Client -> Server : 2. invia richiesta dati categoria
+Server -> Database : 3. legge informazioni categoria
+Database -> Server : 4. risposta dati categoria
+
+' Flusso positivo
+Server --> TabellaCategoria : 5a. se lettura riuscita, crea tabella
+TabellaCategoria -> Utente : 6a. mostra tabella categoria
+
+' Flusso errore
+Server --> Index : 5b. se errore, mostra messaggio e redirect
+Index -> Utente : 6b. visualizza pagina di scelta
+
+@enduml
