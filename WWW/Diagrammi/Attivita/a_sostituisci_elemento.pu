@@ -1,8 +1,8 @@
-@startuml Aggiungi_elemento
+@startuml Sostiuisci_elemento
 start
 
-:Utente clicca su "Aggiungi";
-:Va sulla pagina di aggiunta;
+:Utente clicca su "Sostituisci";
+:Va sulla pagina di sostituzione;
 
 if (id valido?) then (sì)
     :L'utente inserisce i dati dell'elemento (nome, attributi*, sinonimi*);
@@ -12,7 +12,8 @@ if (id valido?) then (sì)
     :I dati vengono validati;
     if (Dati validi?) then (sì)
         :I dati vengono inviati al server;
-        :Il server li inserisce nel DB;
+        :Il server salva il nome precedente;
+        :Il server modifica i dati nel DB;
         if (Inserimento corretto?) then (sì)
             :Torno alla pagina di visualizza tassonomia;
             stop

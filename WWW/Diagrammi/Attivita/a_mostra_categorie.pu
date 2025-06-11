@@ -1,0 +1,16 @@
+@startuml Mostra_categorie
+start
+
+:Utente clicca su "Mostra categoria";
+:Il client invia richiesta al server;
+:Il server recupera la lista delle categorie;
+
+if (Risposta OK?) then (sì)
+    :Costruisco la tabella con i nomi delle categorie;
+    stop
+else (no)
+    :Stampo un messaggio di errore;
+    :Ritorno alla pagina di scelta (index);
+    stop
+endif
+@enduml

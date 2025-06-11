@@ -1,0 +1,12 @@
+@startuml Ottieni_tassonomie
+start
+:Invia richiesta dati tassonomia al DB;
+:Attendi risposta DB;
+if (Risposta OK?) then (sì)
+  :Crea tabella con i dati;
+  stop
+else (no)
+  :Mostra messaggio di errore;
+  stop
+endif
+@enduml

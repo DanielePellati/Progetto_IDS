@@ -1,0 +1,15 @@
+@startuml scarica_json
+start
+:Utente clicca su "Scarica";
+:Invia richiesta al server per ottenere tutti le informazioni;
+:Server risponde con i dati;
+if (Lettura corretta?) then (sì)
+    :Vengono creati gli oggetti JS;
+    :Vengono trasformati in JSON;
+    :Viene effettuato il download del JSON;
+    stop
+else (no)
+    :Stampa messaggio di errore; 
+    stop
+endif
+@enduml

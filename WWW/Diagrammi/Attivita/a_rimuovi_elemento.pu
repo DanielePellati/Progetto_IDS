@@ -1,0 +1,18 @@
+@startuml Rimuovi_elemento
+:L'utente clicca su "Rimuovi";
+:Il browser, se l'elemento ha figli, chiede conferma;
+if (Conferma?) then (Sì)
+    : Invia al server la richiesta di cancellazione dell'elemento;
+    : Il server effettua la cancellazione;
+    if(Cancellazione ok? ) then (Sì)
+        :Stampa messaggio di cancellazione riuscita;
+        stop
+    else (No)
+        :Stampo messaggio di errore;
+        stop
+    endif
+else (No)
+    :Messaggio di annullamento della cancellazione;
+    stop
+endif
+@enduml

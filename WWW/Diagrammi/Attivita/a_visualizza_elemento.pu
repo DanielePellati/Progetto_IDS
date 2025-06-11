@@ -1,0 +1,12 @@
+@startuml visualizza_elemento
+:Utente clicca sul bottone "Visualizza";
+:Viene fatta una richiesta al server per prendere i dati;
+    if (Dati recuperati? ) then(Sì)
+        :I dati vengono stampati divisi per tabelle;
+        stop
+    else (no)
+        :Stampo un messaggio di errore;
+        :Torno alla pagina di scelta (index);
+        stop
+    endif
+@enduml

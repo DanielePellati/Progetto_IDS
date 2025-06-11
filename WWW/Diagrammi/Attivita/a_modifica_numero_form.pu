@@ -1,0 +1,20 @@
+@startuml modifica_numero_forms
+start
+
+:Utente modifica il numero (attributi/sinonimi);
+:Verifica che il valore sia un numero valido;
+
+if (Numero valido?) then (Sì)
+    if (Valore maggiore di quello attuale?) then (Sì)
+        :Aggiungi il numero di input richiesti;
+    else if (Valore minore?) then (Sì)
+        :Rimuovi il numero di input richiesti;
+    else
+        :Non modificare nulla;
+    endif
+else (No)
+    :Imposta il valore a zero;
+endif
+
+stop
+@enduml
