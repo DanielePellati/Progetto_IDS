@@ -1,0 +1,18 @@
+@startuml use_case
+actor Utente
+
+Utente --> (Vedere tutte le tassonomie)
+Utente --> (Creare una nuova tassonomia)
+Utente --> (Visualizzare una tassonomia)
+Utente --> (Modificare le informazioni di una tassonomia)
+Utente --> (Eliminare una tassonomia)
+Utente --> (Scaricare una tassonomia)
+Utente --> (Visualizzare i dettagli di un elemento)
+Utente --> (Sostituire un elemento)
+Utente --> (Aggiungere un elemento)
+Utente --> (Rimuovere un elemento)
+Utente --> (Aggiungere una categoria)
+Utente --> (Rimuovere una categoria)
+Utente --> (Vedere le categorie)
+Utente --> (Vedere i nomi precedenti di un elemento)
+@enduml
