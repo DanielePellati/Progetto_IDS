@@ -1,0 +1,17 @@
+@startuml scarica_json_sequenza
+participant Utente
+participant Client
+participant Server
+
+Utente -> Client : clicca "Scarica"
+Client -> Server : richiede dati
+Server --> Client : invia dati
+
+alt lettura corretta
+    Client -> Client : crea oggetti JS
+    Client -> Client : trasforma in JSON
+    Client -> Utente : avvia download JSON
+else errore
+    Client -> Utente : mostra messaggio di errore
+end
+@enduml

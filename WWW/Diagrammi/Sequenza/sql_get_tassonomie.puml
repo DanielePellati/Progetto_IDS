@@ -1,0 +1,17 @@
+@startuml Ottieni_tassonomie_Sequenza
+participant Client
+participant Server
+participant DB
+
+Client -> Server : Richiesta dati tassonomia
+Server -> DB : Query dati tassonomia
+DB --> Server : Risposta dati
+
+alt risposta OK
+    Server -> Client : Invia dati tassonomia
+    Client -> Client : Crea tabella con dati
+else risposta errore
+    Server -> Client : Messaggio di errore
+    Client -> Client : Mostra messaggio di errore
+end
+@enduml

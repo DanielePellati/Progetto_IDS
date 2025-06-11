@@ -1,0 +1,19 @@
+@startuml Salvataggio_modifiche_Sequenza
+participant Utente
+participant Interfaccia as UI
+participant Server
+participant DB
+
+Utente -> UI : clicca "Salva" e invia dati modificati
+UI -> Server : invia dati modificati
+Server -> Server : valida dati
+Server -> DB : aggiorna dati
+
+alt salvataggio riuscito
+    Server -> UI : reindirizza a pagina di scelta (index)
+    UI --> Utente : mostra pagina index
+else errore salvataggio
+    Server -> UI : mostra messaggio di errore
+    UI --> Utente : mostra form per correzioni
+end
+@enduml

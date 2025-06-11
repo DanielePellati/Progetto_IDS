@@ -1,0 +1,21 @@
+@startuml visualizza_elemento_sequenza
+participant Utente
+participant Client
+participant Server
+participant DB
+
+Utente -> Client : clicca "Visualizza"
+Client -> Server : richiede dati elemento
+Server -> DB : recupera dati elemento
+DB --> Server : invia dati elemento
+
+alt dati recuperati
+    Server -> Client : invia dati
+    Client -> Client : stampa dati divisi per tabelle
+    Client --> Utente : mostra dati
+else errore recupero dati
+    Server -> Client : invia messaggio di errore
+    Client -> Client : mostra messaggio errore e torna pagina scelta (index)
+    Client --> Utente : mostra pagina index
+end
+@enduml

@@ -1,0 +1,19 @@
+@startuml Visualizza_tassonomia_sequenza
+participant Utente
+participant Client
+participant Server
+participant DB
+
+Utente -> Client : clicca "Visualizza"
+Client -> Server : richiede dettagli tassonomia
+Server -> DB : recupera dettagli tassonomia
+DB --> Server : invia dettagli tassonomia
+
+alt risposta OK
+    Server -> Client : invia dettagli tassonomia
+    Client --> Utente : mostra pagina dettagli tassonomia
+else errore
+    Server -> Client : invia messaggio di errore
+    Client --> Utente : mostra messaggio e reindirizza a pagina scelta (index)
+end
+@enduml

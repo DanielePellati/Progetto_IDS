@@ -1,0 +1,21 @@
+@startuml visualizza_categoria_sequenza
+participant Utente
+participant Client
+participant Server
+participant DB
+
+Utente -> Client : clicca "Visualizza"
+Client -> Server : invia richiesta dati categoria
+Server -> DB : legge informazioni categoria
+DB --> Server : invia dati categoria
+
+alt lettura riuscita
+    Server -> Client : invia dati categoria
+    Client -> Client : crea tabella con voci categoria
+    Client --> Utente : mostra tabella categoria
+else errore lettura
+    Server -> Client : invia messaggio errore
+    Client -> Client : mostra messaggio errore e ritorna pagina scelta (index)
+    Client --> Utente : mostra pagina index
+end
+@enduml

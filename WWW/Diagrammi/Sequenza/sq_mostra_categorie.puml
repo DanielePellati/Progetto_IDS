@@ -1,0 +1,20 @@
+@startuml Mostra_categorie_sequenza
+participant Utente
+participant Client
+participant Server
+participant DB
+
+Utente -> Client : clicca "Mostra categoria"
+Client -> Server : invia richiesta lista categorie
+Server -> DB : recupera lista categorie
+DB --> Server : invia lista categorie
+
+alt risposta OK
+    Server -> Client : invia lista categorie
+    Client -> Client : costruisce tabella categorie
+else risposta errore
+    Server -> Client : invia messaggio di errore
+    Client -> Client : mostra messaggio errore e ritorna a index
+end
+Client --> Utente : mostra pagina (tabella o errore)
+@enduml

@@ -1,0 +1,14 @@
+@startuml annulla_modifica
+participant BrowserClient as BC
+participant View_HTML_CSS as View
+participant Presenter_JS as Presenter
+
+BC -> View : clicca "Annulla"
+View -> Presenter : chiede conferma all'utente
+
+alt conferma sì
+  Presenter -> View : reindirizza a pagina index
+else conferma no
+  Presenter -> View : rimane nel form
+end
+@enduml
