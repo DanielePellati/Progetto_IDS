@@ -1,0 +1,37 @@
+@startuml package_visualizzaCategoria
+package "Bootstrap" {
+  [bootstrap.min.css]
+  [bootstrap.bundle.min.js]
+  [bootstrap-icons.css]
+}
+
+package "jQuery" {
+  [jquery-3.7.1.min.js]
+}
+
+package "Visualizza Categoria - Front-end" {
+  [visualizzaCategoria.html]
+  [visualizzaCategoria.js]
+}
+
+package "Back-end" {
+  [get_categoria.php]
+  [elimina_voceCategoria.php]
+  [connetti_database.php]
+}
+
+' Inclusioni statiche da HTML
+[visualizzaCategoria.html] --> [bootstrap.min.css]
+[visualizzaCategoria.html] --> [bootstrap.bundle.min.js]
+[visualizzaCategoria.html] --> [bootstrap-icons.css]
+[visualizzaCategoria.html] --> [jquery-3.7.1.min.js]
+[visualizzaCategoria.html] --> [visualizzaCategoria.js]
+
+' JS che fa richieste AJAX
+[visualizzaCategoria.js] --> [get_categoria.php]
+[visualizzaCategoria.js] --> [elimina_voceCategoria.php]
+
+' Inclusioni PHP
+[get_categoria.php] --> [connetti_database.php]
+[elimina_voceCategoria.php] --> [connetti_database.php]
+@enduml

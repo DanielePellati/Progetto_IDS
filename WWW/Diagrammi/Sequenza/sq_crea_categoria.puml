@@ -1,0 +1,27 @@
+@startuml Crea_categoria_Sequenza
+participant Utente
+participant Interfaccia as UI
+participant Server
+participant Modello as DB
+
+Utente -> UI : clicca "Inserisci categoria"
+UI --> Utente : mostra pagina inserimento
+
+Utente -> UI : inserisce dati categoria
+UI -> UI : valida dati localmente
+
+alt dati non validi
+    UI --> Utente : mostra errore, rimane su pagina inserimento
+else dati validi
+    UI -> Server : invia dati categoria
+    Server -> DB : inserisci dati nel DB
+
+    alt inserimento riuscito
+        Server -> UI : reindirizza a pagina visualizzazione tassonomia
+        UI --> Utente : mostra pagina visualizzazione
+    else inserimento fallito
+        Server -> UI : mostra errore, ritorna a pagina scelta (index)
+        UI --> Utente : mostra pagina index con errore
+    end
+end
+@enduml

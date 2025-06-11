@@ -1,0 +1,18 @@
+@startuml Stato_Elimina_Tassonomia
+
+[*] --> AttesaInputUtente
+
+AttesaInputUtente --> RichiestaEliminazione : click su "Elimina"
+RichiestaEliminazione --> PuliziaDati : invio richiesta al server
+
+PuliziaDati --> ErrorePulizia : pulizia fallita
+PuliziaDati --> EliminazioneTassonomia : pulizia riuscita
+
+EliminazioneTassonomia --> ErroreRimozione : rimozione fallita
+EliminazioneTassonomia --> Completato : rimozione riuscita
+
+Completato --> [*]
+ErrorePulizia --> [*]
+ErroreRimozione --> [*]
+
+@enduml

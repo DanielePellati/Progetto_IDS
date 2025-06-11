@@ -1,0 +1,27 @@
+@startuml Crea_categoria
+start
+
+:Utente clicca su "Inserisci categoria";
+:Viene caricata la pagina di inserimento;
+
+:Utente inserisce i dati della categoria;
+:I dati vengono validati;
+
+if (Dati validi?) then (sì)
+    :Invio i dati al server;
+
+    if (Inserimento riuscito?) then (sì)
+        :Reindirizzamento alla pagina di visualizzazione della tassonomia;
+        stop
+    else (no)
+        :Stampo messaggio di errore;
+        :Ritorno alla pagina di scelta (index);
+        stop
+    endif
+
+else (no)
+    :Stampo messaggio di errore;
+    :Rimango sulla pagina di inserimento;
+    stop
+endif
+@enduml

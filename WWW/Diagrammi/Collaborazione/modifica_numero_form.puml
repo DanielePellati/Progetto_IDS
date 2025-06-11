@@ -1,0 +1,18 @@
+@startuml modifica_numero_form
+
+
+object Utente
+object Form
+object Validatore
+object GestoreCampi
+
+Utente -> Form : 1. modifica numero attributi/sinonimi
+Form -> Validatore : 2. verifica se numero valido
+
+Validatore -> GestoreCampi : 3a. numero valido e maggiore → aggiungi input
+Validatore -> GestoreCampi : 3b. numero valido e minore → rimuovi input
+Validatore -> GestoreCampi : 3c. numero valido ma uguale → nessuna modifica
+
+Validatore -> GestoreCampi : 3d. numero non valido → imposta a zero
+
+@enduml

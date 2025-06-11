@@ -1,0 +1,17 @@
+@startuml Stato_Visualizza_Categoria
+
+[*] --> AttesaClickVisualizza
+
+AttesaClickVisualizza --> InvioRichiestaServer : clic su "Visualizza"
+InvioRichiestaServer --> AttesaRispostaServer
+AttesaRispostaServer --> LetturaRiuscita : lettura riuscita
+AttesaRispostaServer --> LetturaFallita : lettura fallita
+
+LetturaRiuscita --> CreazioneTabella
+CreazioneTabella --> [*]
+
+LetturaFallita --> MostraErrore
+MostraErrore --> RitornoIndex
+RitornoIndex --> [*]
+
+@enduml

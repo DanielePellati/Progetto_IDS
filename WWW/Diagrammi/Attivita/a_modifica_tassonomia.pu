@@ -1,0 +1,14 @@
+@startuml modifica_tassonomia
+start
+:Utente clicca su "Modifica";
+:Invia richiesta di caricamento pagina dettagli;
+:Recupera dettagli della tassonomia dal DB;
+if (Risposta OK?) then (sì)
+  :Crea form in cui inserisce i dati appena presi in modo da poterli modificare;
+  stop
+else (no)
+  :Mostra messaggio di errore;
+  :Reindirizza alla pagina di scelta (index);
+  stop
+endif
+@enduml

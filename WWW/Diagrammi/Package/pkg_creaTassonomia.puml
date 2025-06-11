@@ -1,0 +1,34 @@
+@startuml package_creaTassonomia
+package "Bootstrap" {
+  [bootstrap.min.css]
+  [bootstrap.bundle.min.js]
+  [bootstrap-icons.css]
+}
+
+package "jQuery" {
+  [jquery-3.7.1.min.js]
+}
+
+package "Crea Tassonomia - Front-end" {
+  [creaTassonomia.css]
+  [creaTassonomia.js]
+  [creaTassonomia.php]
+}
+
+package "Back-end" {
+  [connetti_database.php]
+}
+
+' Inclusioni statiche da HTML o JS
+[creaTassonomia.js] --> [jquery-3.7.1.min.js]
+[creaTassonomia.js] --> [bootstrap.min.css]
+[creaTassonomia.js] --> [bootstrap.bundle.min.js]
+[creaTassonomia.js] --> [bootstrap-icons.css]
+[creaTassonomia.js] --> [creaTassonomia.css]
+
+' Chiamata PHP da JS
+[creaTassonomia.js] --> [creaTassonomia.php]
+
+' Connessione al DB
+[creaTassonomia.php] --> [connetti_database.php]
+@enduml

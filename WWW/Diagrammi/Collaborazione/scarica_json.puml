@@ -1,0 +1,23 @@
+@startuml scarica_json
+' Communication diagram UML (diagramma di collaborazione)
+
+object Utente
+object Interfaccia
+object Server
+object JS
+object JSON
+object Blob
+
+Utente -> Interfaccia : 1. clic su "Scarica"
+Interfaccia -> Server : 2. invia richiesta dati
+Server -> Interfaccia : 3. restituisce dati
+
+Server -> Interfaccia : 4a. lettura corretta
+Interfaccia -> JS : 5a. crea oggetti JavaScript
+JS -> JSON : 6a. trasforma oggetti in JSON
+JSON -> Blob : 7a. crea blob e avvia download
+
+Server -> Interfaccia : 4b. errore nella lettura
+Interfaccia -> Utente : 5b. mostra messaggio di errore
+
+@enduml

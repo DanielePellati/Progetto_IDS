@@ -1,0 +1,17 @@
+@startuml Stato_Visualizza_Elemento
+
+[*] --> AttesaClickVisualizza
+
+AttesaClickVisualizza --> InvioRichiestaServer : clic su "Visualizza"
+InvioRichiestaServer --> AttesaRispostaServer
+AttesaRispostaServer --> DatiRecuperati : dati recuperati
+AttesaRispostaServer --> DatiNonRecuperati : errore
+
+DatiRecuperati --> StampaDati
+StampaDati --> [*]
+
+DatiNonRecuperati --> MostraErrore
+MostraErrore --> RitornoIndex
+RitornoIndex --> [*]
+
+@enduml

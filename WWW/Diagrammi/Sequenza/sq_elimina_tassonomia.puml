@@ -1,0 +1,33 @@
+@startuml Elimina_tassonomia
+
+participant BrowserClient as BC
+participant Presenter_JS as Presenter
+participant WebServer as Server
+participant Model_PHP as Model
+participant View_HTML_CSS as View
+
+BC -> Presenter : clicca "Elimina"
+Presenter -> Server : invia richiesta eliminazione
+Server -> Model : pulisce tassonomia
+
+alt pulizia riuscita
+    Model --> Server : conferma pulizia
+    Server -> Model : rimuove tassonomia
+    alt rimozione riuscita
+        Model --> Server : conferma rimozione
+        Server -> Presenter : conferma eliminazione
+        Presenter -> View : rimuove elemento graficamente
+        View --> BC : aggiorna interfaccia
+    else rimozione fallita
+        Server -> Presenter : errore rimozione
+        Presenter -> View : mostra messaggio errore
+        View --> BC : mostra errore
+    end
+else pulizia fallita
+    Model --> Server : errore pulizia
+    Server -> Presenter : errore pulizia
+    Presenter -> View : mostra messaggio errore
+    View --> BC : mostra errore
+end
+
+@enduml

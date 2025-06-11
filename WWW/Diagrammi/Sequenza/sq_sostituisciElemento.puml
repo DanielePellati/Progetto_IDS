@@ -1,0 +1,32 @@
+@startuml Sostituisci_elemento_sequenza
+participant Utente
+participant Client
+participant Server
+participant DB
+
+Utente -> Client : clicca "Sostituisci" e va alla pagina sostituzione
+
+alt id valido
+    Utente -> Client : inserisce dati elemento (nome, attributi*, sinonimi*)
+    Client -> Client : valida dati
+
+    alt dati validi
+        Client -> Server : invia dati
+        Server -> Server : salva nome precedente
+        Server -> DB : modifica dati nel DB
+
+        alt inserimento corretto
+            Server -> Client : torna pagina visualizza tassonomia
+            Client --> Utente : mostra pagina visualizza
+        else errore inserimento
+            Server -> Client : messaggio errore
+            Client --> Utente : mostra errore e torna pagina scelta (index)
+        end
+    else dati non validi
+        Client --> Utente : mostra errore e torna pagina scelta (index)
+    end
+
+else id non valido
+    Client --> Utente : mostra errore e torna pagina scelta (index)
+end
+@enduml

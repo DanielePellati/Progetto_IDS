@@ -1,11 +1,14 @@
 <?php
-
-/* 
-
-    Utilizzo: 
-    Recuperare i dati dal database per la pagina di visualizzazione della tassonomia
-
-*/
+/**
+ * Restituisce le categorie associate a una tassonomia specificata tramite parametro GET.
+ * 
+ * Se il parametro 'idTassonomia' è valido, esegue una query sul database per ottenere
+ * l'elenco delle categorie appartenenti a quella tassonomia e restituisce i risultati in formato JSON.
+ * In caso contrario, restituisce un errore JSON con status -1.
+ * 
+ * @param int $_GET['idTassonomia'] ID della tassonomia per cui recuperare le categorie
+ * @return string JSON con la lista delle categorie o un messaggio di errore
+ */
 
 
 include_once("connetti_database.php");
@@ -19,7 +22,14 @@ $scelta = isset($_GET['func']) ? $_GET['func'] : (isset($_POST['func']) ? $_POST
  * @param  \PDO $pdo Connessione al database
  * @param  int $id_tassonomia id della tassonomia di cui voglio ottenere le informazioni di base
  */
-function getInfoTassonomia($pdo, $id_tassonomia){
+function getInfoTassonomia($pdo, $id_tassonomia)
+{
+
+    if (!isset($id_tassonomia)) {
+        header('Content-Type: application/json');
+        echo json_encode(["risultato" => -1, "id" => $id_tassonomia]);
+        return;
+    }
 
     $query = <<<SQL
         SELECT tassonomia.nome, tassonomia.descrizione
@@ -28,18 +38,20 @@ function getInfoTassonomia($pdo, $id_tassonomia){
     SQL;
 
     // preparo la query 
-    $stmt = $pdo->prepare($query);      
+    $stmt = $pdo->prepare($query);
 
     // assegno il valore di ":id" assegnandogli il valore passato tramite GET.
     // Tra i vantaggi c'è la prevenzione di SQL injection
-    $stmt->execute(['id'=>$id_tassonomia]);
+    if ($stmt->execute(['id' => $id_tassonomia])) {
+        // salvo i risultati della query in un array
+        $risultati = $stmt->fetch();
 
-    // salvo i risultati della query in un array
-    $risultati = $stmt->fetch();
-
-    $risultatiJSON = json_encode($risultati);
-    header('Content-Type: application/json');
-    echo $risultatiJSON;
+        $risultatiJSON = json_encode($risultati);
+        header('Content-Type: application/json');
+        echo $risultatiJSON;
+    } else {
+        echo json_encode(["risultato" => -1]);
+    }
 }
 
 
@@ -49,19 +61,21 @@ function getInfoTassonomia($pdo, $id_tassonomia){
  * @param  \PDO $pdo Connessione al database
  * @param  int $id id della tassonomia di cui voglio ottenere la lista degli elementi
  */
-function getElementiTassonomia($pdo, $id){
+function getElementiTassonomia($pdo, $id)
+{
 
     $query = <<<SQL
         SELECT elemento.id, elemento.id_padre, elemento.nome 
         FROM elemento 
-        WHERE elemento.id_tassonomia = :id AND elemento.id NOT IN (SELECT sinonimo FROM Sinonimi);
+        WHERE elemento.id_tassonomia = :id AND elemento.id NOT IN (SELECT sinonimo FROM Sinonimi)
+        ORDER BY elemento.id_padre
     SQL;
 
     // preparo la query 
-    $stmt = $pdo->prepare($query);     
+    $stmt = $pdo->prepare($query);
     // assegno il valore di ":id" assegnandogli il valore passato tramite GET.
     // Tra i vantaggi c'è la prevenzione di SQL injection
-    $stmt->execute(['id'=>$id]);
+    $stmt->execute(['id' => $id]);
 
     // salvo i risultati della query in un array
     $risultati = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -71,7 +85,15 @@ function getElementiTassonomia($pdo, $id){
     echo $risultatiJSON;
 }
 
-function getNumeroElementi($pdo, $id){
+/**
+ * getNumeroElementi
+ *
+ * @param  \PDO $pdo connessione al DB
+ * @param  int $id id della tassonomia su cui contare il numero di elementi
+ * @return void
+ */
+function getNumeroElementi($pdo, $id)
+{
     $query = <<<SQL
         SELECT COUNT(*) AS nElementi
         FROM elemento AS e
@@ -79,7 +101,7 @@ function getNumeroElementi($pdo, $id){
     SQL;
 
     $stmt = $pdo->prepare($query);
-    $stmt->execute(['id'=>$id]);
+    $stmt->execute(['id' => $id]);
     $risultato = $stmt->fetch();
     echo $risultato[0];
 }

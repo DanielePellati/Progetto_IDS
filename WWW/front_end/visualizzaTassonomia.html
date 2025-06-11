@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Albero Tassonomico</title>
+    <title></title>
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="albero.css" />
     <link
@@ -28,21 +28,45 @@
   </head>
 
   <body>
-    <div class="container mt-4">
-      <a href="../index.php" class="btn btn-outline-primary mb-3">
-        <i class="bi bi-house-fill"></i> Home
-      </a>
-      <a id="mostraCategorie" class="btn btn-outline-primary mb-3">
-        Mostra categorie
-      </a>
-      <a id="inserisciCategoria" class="btn btn-outline-primary mb-3">
-        Inserisci categoria
-      </a>
+    <!-- Header -->
+    <header class="bg-dark text-white py-4 mb-4">
+      <div class="container d-flex justify-content-between align-items-center">
+        <!-- Pulsanti -->
+        <div>
+          <a href="../index.php" class="btn btn-outline-light">
+            <i class="bi bi-house-fill"></i> Home
+          </a>
+          <a id="mostraCategorie" class="btn btn-outline-light">
+            Mostra categorie
+          </a>
+          <a id="nomiPrecedenti" class="btn btn-outline-light">
+            Nomi precedenti
+          </a>
+          <a id="inserisciCategoria" class="btn btn-outline-light">
+            Inserisci categoria
+          </a>
+        </div>
+        <!-- Titolo -->
+        <h1 class="nome_elemento mb-0 text-center flex-grow-1"></h1>
+        <!-- Spazio vuoto per bilanciare layout -->
+        <div style="width: 120px;"></div>
+      </div>
+    </header>
+
+    <!-- Sezione Nome e Descrizione della Tassonomia -->
+    <div class="container mb-4">
       <div class="card">
         <div class="card-body">
-          <ul id="tree-container" class="tree"></ul>
-          <!-- Albero populato da JS -->
+          <h2 id="tassNome" class="nome-tassonomia"></h2>
+          <p id="desc" class="descrizione-tassonomia text-muted"></p>
         </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <ul id="tree-container" class="tree"></ul>
+        <!-- Albero populato da JS -->
       </div>
     </div>
 

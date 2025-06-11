@@ -1,0 +1,16 @@
+@startuml visualizza_categoria
+start
+
+:Utente clicca su "Visualizza";
+:Il client invia richiesta al server;
+:Il server legge le informazioni della categoria;
+
+if (Lettura riuscita?) then (sì)
+    :Creo la tabella con le voci della categoria;
+    stop
+else (no)
+    :Stampo un messaggio di errore;
+    :Ritorno alla pagina di scelta (index);
+    stop
+endif
+@enduml

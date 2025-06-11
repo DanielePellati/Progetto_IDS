@@ -1,0 +1,16 @@
+@startuml Stato_Salvataggio_Modifiche
+
+[*] --> AttesaClickSalva
+
+AttesaClickSalva --> InvioDatiAlServer : clic su "Salva"
+InvioDatiAlServer --> AttesaRispostaServer
+AttesaRispostaServer --> SalvataggioOK : salvataggio riuscito
+AttesaRispostaServer --> SalvataggioFallito : salvataggio fallito
+
+SalvataggioOK --> Reindirizzamento
+Reindirizzamento --> [*]
+
+SalvataggioFallito --> RitornoAlForm
+RitornoAlForm --> [*]
+
+@enduml

@@ -1,0 +1,12 @@
+@startuml Annulla_modifica
+start
+:Utente clicca su "Annulla";
+:Chiede conferma all'utente;
+if (conferma?) then (Sì)
+    :Reindirizza alla pagina di scelta (index);
+    stop
+else (no)
+    :Rimane nel form e non annulla le modifiche;
+    stop
+endif
+@enduml

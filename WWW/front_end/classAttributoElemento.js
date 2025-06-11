@@ -1,25 +1,63 @@
+/**
+ * Rappresenta un attributo con un valore e un tipo associato.
+ */
 class Attributo {
-    constructor(valore, tipo) {
-        this._valore = valore;  // Usa _valore come proprietà interna
-        this._tipo = tipo;      // Usa _tipo come proprietà interna
-    }
+  /**
+   * constructor
+   * Crea un nuovo Attributo.
+   * @param {*} valore - Il valore dell'attributo.
+   * @param {string} tipo - Il tipo dell'attributo.
+   */
+  constructor(valore, tipo) {
+    this._valore = valore;
+    this._tipo = tipo;
+  }
 
-    // Getter per il valore
-    get valore() {
-        return this._valore;    // Restituisci la proprietà interna _valore
-    }
+  /**
+   * get valore
+   * Ottiene il valore dell'attributo.
+   * @returns {*} Il valore corrente.
+   */
+  get valore() {
+    return this._valore;
+  }
 
-    // Getter per il tipo
-    get tipo() {
-        return this._tipo;      // Restituisci la proprietà interna _tipo
-    }
+  /**
+   * get tipo
+   * Ottiene il tipo dell'attributo.
+   * @returns {string} Il tipo corrente.
+   */
+  get tipo() {
+    return this._tipo;
+  }
 
-    toJSON() {
-        return {
-            valore: this.valore,
-            tipo: this.tipo
-        };
-    }
+  /**
+   * set valore
+   * Imposta un nuovo valore per l'attributo.
+   * @param {*} nuovoValore - Il nuovo valore da assegnare.
+   */
+  set valore(nuovoValore) {
+    this._valore = nuovoValore;
+  }
+
+  /**
+   * set tipo
+   * Imposta un nuovo tipo per l'attributo.
+   * @param {string} nuovoTipo - Il nuovo tipo da assegnare.
+   */
+  set tipo(nuovoTipo) {
+    this._tipo = nuovoTipo;
+  }
+
+  /**
+   * toJSON
+   * Ritorna una rappresentazione JSON dell'attributo.
+   * @returns {{valore: *, tipo: string}} Oggetto JSON con valore e tipo.
+   */
+  toJSON() {
+    return {
+      valore: this.valore,
+      tipo: this.tipo,
+    };
+  }
 }
-
-window.Attributo = Attributo;

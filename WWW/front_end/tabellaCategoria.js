@@ -1,3 +1,8 @@
+/**
+ * getId
+ * Legge e ritorna l'id passato in GET e letto dal querystring.
+ * @returns {number} id passato in GET e letto dal querystring
+ */
 function getId() {
   var urlParamas = new URLSearchParams(window.location.search);
   var idTassonomia = urlParamas.get("idTassonomia");
@@ -9,6 +14,12 @@ $(document).ready(function () {
   $("#indietro").attr("href", `visualizzaTassonomia.html?id=${idTassonomia}`);
 });
 
+/**
+ * eliminaCategoria
+ * Richiedo l'eliminazione della categoria
+ * @param {number} idCategoria id della categoria da eliminare
+ * @returns {void}
+ */
 function eliminaCategoria(idCategoria) {
   // Inizio prendendo gli id di tutti gli elementi di una categoria
   // Controllo che non siano nella tabella valore
@@ -28,14 +39,19 @@ function eliminaCategoria(idCategoria) {
           "Impossibile cancellare la categoria: almeno un elemento è in uso"
         );
       else if (data.risultato == -5) alert("Errore nella cancellazione");
-      else{
-        
+      else {
       }
     },
     "json"
   );
 }
 
+/**
+ * creaTabella
+ * Creo e stampo la tabella con le categorie
+ * @param {Object[]} categorie array la lista delle categorie
+ * @returns {void}
+ */
 function creaTabella(categorie) {
   let tabella;
   let bottoneElimina;
@@ -70,12 +86,22 @@ function creaTabella(categorie) {
 
 const idTassonomia = getId();
 
+/**
+ * stampaErrore
+ * Stampa l'errore e ritorna all'index
+ * @returns {void}
+ */
+function stampaErrore() {
+  alert("Errore nel caricamente delle categorie");
+  window.location.href = "../index.php";
+}
+
 $.get(
   "../back_end/get_tab_categorie.php",
   { idTassonomia: idTassonomia },
   function (data) {
     if (data.status == -1) {
-      alert("Errore nel caricamente delle categorie");
+      stampaErrore();
     } else {
       creaTabella(data);
     }

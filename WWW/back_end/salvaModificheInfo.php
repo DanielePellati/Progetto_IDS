@@ -1,5 +1,24 @@
 <?php
 
+/**
+ * Aggiorna il nome e/o la descrizione di una tassonomia nel database.
+ * 
+ * Riceve tramite POST i parametri:
+ * - 'nome' (string|null): nuovo nome della tassonomia (opzionale).
+ * - 'descrizione' (string|null): nuova descrizione della tassonomia (opzionale).
+ * - 'idTassonomia' (int): ID della tassonomia da aggiornare (obbligatorio).
+ * 
+ * Risponde con un JSON contenente:
+ * - 'risultato' (int): codice di stato dell'operazione.
+ *   - 1: aggiornamento riuscito.
+ *   - -1: ID tassonomia mancante.
+ *   - -2: nessun dato da aggiornare fornito.
+ *   - -3: errore durante l'esecuzione della query.
+ * - 'errore' (string, opzionale): messaggio d'errore se presente.
+ */
+
+
+
 // Includo il file di connessione al database
 require_once "./connetti_database.php";
 

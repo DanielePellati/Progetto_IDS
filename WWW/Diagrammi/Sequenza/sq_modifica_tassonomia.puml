@@ -1,0 +1,19 @@
+@startuml modifica_tassonomia_sequenza
+participant Utente
+participant Interfaccia as UI
+participant Server
+participant DB
+
+Utente -> UI : clicca "Modifica"
+UI -> Server : richiede pagina dettagli
+Server -> DB : recupera dettagli tassonomia
+DB --> Server : invia dettagli
+
+alt risposta OK
+    Server -> UI : invia dati per form modifica
+    UI --> Utente : mostra form con dati precompilati
+else errore
+    Server -> UI : messaggio di errore
+    UI --> Utente : mostra errore e reindirizza a index
+end
+@enduml

@@ -1,0 +1,20 @@
+@startuml Stato_Modifica_Numero_Forms
+
+[*] --> AttesaModifica
+
+AttesaModifica --> VerificaNumero : utente modifica valore
+VerificaNumero --> NumeroNonValido : numero non valido
+VerificaNumero --> NumeroUguale : numero valido ma uguale
+VerificaNumero --> NumeroMaggiore : numero valido e maggiore
+VerificaNumero --> NumeroMinore : numero valido e minore
+
+NumeroMaggiore --> AggiornaInputAggiunti
+NumeroMinore --> AggiornaInputRimossi
+NumeroNonValido --> ImpostaZero
+
+AggiornaInputAggiunti --> [*]
+AggiornaInputRimossi --> [*]
+NumeroUguale --> [*]
+ImpostaZero --> [*]
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml Ottieni_tassonomie
+' Communication diagram UML (diagramma di collaborazione)
+
+object Client
+object Server
+object Database
+object TabellaTassonomie
+
+Client -> Server : 1. invia richiesta dati tassonomia
+Server -> Database : 2. richiede dati tassonomia
+Database -> Server : 3. risposta dati tassonomia
+
+' Flusso positivo
+Server --> TabellaTassonomie : 4a. se risposta OK, crea tabella con dati
+TabellaTassonomie -> Client : 5a. mostra tabella
+
+' Flusso errore
+Server --> Client : 4b. se errore, mostra messaggio di errore
+
+@enduml

@@ -1,0 +1,26 @@
+@startuml Crea_categoria
+
+object Utente
+object PaginaInserimento
+object Server
+object Database
+object PaginaVisualizzazione
+object Index
+
+Utente -> PaginaInserimento : 1. clic su "Inserisci categoria"
+PaginaInserimento -> Utente : 2. mostra form di inserimento
+Utente -> PaginaInserimento : 3. inserisce dati
+PaginaInserimento -> PaginaInserimento : 4. valida i dati
+
+PaginaInserimento -> Server : 5a. invia i dati
+Server -> Database : 6a. tenta inserimento
+
+Database -> Server : 7a. inserimento riuscito
+Server -> PaginaVisualizzazione : 8a. redirect
+
+Database -> Server : 7b. errore nell'inserimento
+Server -> Index : 8b. mostra messaggio e redirect
+
+PaginaInserimento -> Utente : 5b. dati non validi → mostra errore, resta sulla pagina
+
+@enduml

@@ -1,0 +1,32 @@
+@startuml Rimuovi_elemento
+
+participant BrowserClient as BC
+participant Presenter_JS as Presenter
+participant WebServer as Server
+participant Model_PHP as Model
+participant View_HTML_CSS as View
+
+BC -> Presenter : clicca "Rimuovi"
+Presenter -> BC : chiede conferma (se elemento ha figli)
+
+alt conferma sì
+  Presenter -> Server : invia richiesta cancellazione
+  Server -> Model : elimina elemento
+
+  alt cancellazione riuscita
+    Model --> Server : conferma cancellazione
+    Server -> Presenter : conferma successo
+    Presenter -> View : mostra messaggio successo
+    View --> BC : aggiorna interfaccia
+  else cancellazione fallita
+    Server -> Presenter : errore cancellazione
+    Presenter -> View : mostra messaggio errore
+    View --> BC : mostra errore
+  end
+
+else conferma no
+  Presenter -> View : mostra annullamento cancellazione
+  View --> BC : aggiorna interfaccia
+end
+
+@enduml

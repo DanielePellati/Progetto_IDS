@@ -1,0 +1,19 @@
+@startuml modifica_numero_forms_sequenza
+participant Utente
+participant Interfaccia as UI
+
+Utente -> UI : modifica il numero (attributi/sinonimi)
+UI -> UI : verifica che il valore sia un numero valido
+
+alt numero non valido
+    UI -> UI : imposta valore a zero
+else numero valido
+    alt valore maggiore di quello attuale
+        UI -> UI : aggiungi il numero di input richiesti
+    else valore minore di quello attuale
+        UI -> UI : rimuovi il numero di input richiesti
+    else valore uguale a quello attuale
+        UI -> UI : non modificare nulla
+    end
+end
+@enduml

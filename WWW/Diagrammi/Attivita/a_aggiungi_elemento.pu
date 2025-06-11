@@ -1,0 +1,34 @@
+@startuml Aggiungi_elemento
+start
+
+:Utente clicca su "Aggiungi";
+:Va sulla pagina di aggiunta;
+
+if (id valido?) then (sì)
+    :L'utente inserisce i dati dell'elemento (nome, attributi*, sinonimi*);
+    note left
+        * facoltativi.
+    end note
+    :I dati vengono validati;
+    if (Dati validi?) then (sì)
+        :I dati vengono inviati al server;
+        :Il server li inserisce nel DB;
+        if (Inserimento corretto?) then (sì)
+            :Torno alla pagina di visualizza tassonomia;
+            stop
+        else (no)
+                :Stampo messaggio di errore;
+                :Ritorno alla pagina di scelta (index);
+                stop
+        endif
+    else (no)
+            :Stampo messaggio di errore;
+            :Ritorno alla pagina di scelta (index);
+            stop
+    endif
+else (no)
+        :Stampo messaggio di errore;
+        :Ritorno alla pagina di scelta (index);
+        stop;
+endif
+@enduml

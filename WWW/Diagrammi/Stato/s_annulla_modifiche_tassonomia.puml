@@ -1,0 +1,11 @@
+@startuml Stato_Annulla_Modifica
+
+[*] --> InEditing
+
+InEditing --> ConfermaAnnulla : click su "Annulla"
+ConfermaAnnulla --> Annullato : conferma = sì
+ConfermaAnnulla --> InEditing : conferma = no
+
+Annullato --> [*]
+
+@enduml

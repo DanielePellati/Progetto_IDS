@@ -22,9 +22,7 @@ services:
       MYSQL_DATABASE: progetto_IGS
     ports:
       - "3306:3306"
-    volumes:
-      - ../Database:/var/lib/mysql
-
+      
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin

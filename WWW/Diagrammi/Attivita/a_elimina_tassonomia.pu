@@ -1,0 +1,18 @@
+@startuml Elimina_tassonomia
+start
+:Utente clicca su "Elimina";
+:Invia richiesta di eliminazione al server;
+:Server pulisce la tassonomia rimuovendo tutti i dati a essa associata;
+if(Pulizia riuscita?) then (sì)
+    :Rimuove la tassonomia;
+    if(Rimozione riuscita?) then(sì)
+        :Rimuove graficamente l'elemento;
+        stop
+    else (no)
+        :Stampa messaggio di errore;
+        stop
+    endif
+else (no)
+    :Stampa messaggio di errore;
+    stop
+@enduml

@@ -1,0 +1,59 @@
+@startuml package_index
+package "Bootstrap" {
+  [bootstrap.min.css]
+  [bootstrap-icons.css]
+  [bootstrap.bundle.min.js]
+}
+
+package "jQuery" {
+  [jquery-3.7.1.min.js]
+}
+
+package "Front-end Custom" {
+  [index.css]
+  [index.js]
+  
+  package "Gestione Cancellazione" {
+    [eliminaTassonomia.js]
+  }
+  
+  package "Download JSON" {
+    [classAttributoElemento.js]
+    [classNomePrecedente.js]
+    [classElementoTassonomia.js]
+    [classTassonomia.js]
+    [downloadJson.js]
+  }
+}
+
+package "Back-end PHP" {
+  [get_index.php]
+  [elimina_tassonomia.php]
+  [rimuovi_elemento.php]
+  [get_tassonomia.php]
+  [get_elemento.php]
+  [connetti_database.php]
+}
+
+' Relazioni tra package
+[bootstrap.min.css] --> [index.css] : stile base + custom
+[index.js] --> [jquery-3.7.1.min.js] : dipendenza jQuery
+[bootstrap.bundle.min.js] --> [jquery-3.7.1.min.js] : bootstrap usa jQuery (bootstrap 5 usa più vanilla JS, ma mantengo dipendenza)
+[index.js] --> [eliminaTassonomia.js]
+[index.js] --> [downloadJson.js]
+
+' Relazioni front-end / back-end
+[index.js] --> [get_index.php] : richieste AJAX
+[eliminaTassonomia.js] --> [elimina_tassonomia.php]
+[eliminaTassonomia.js] --> [rimuovi_elemento.php]
+[downloadJson.js] --> [get_tassonomia.php]
+[downloadJson.js] --> [get_elemento.php]
+
+' Dipendenze back-end
+[get_index.php] --> [connetti_database.php]
+[elimina_tassonomia.php] --> [connetti_database.php]
+[rimuovi_elemento.php] --> [connetti_database.php]
+[get_tassonomia.php] --> [connetti_database.php]
+[get_elemento.php] --> [connetti_database.php]
+
+@enduml

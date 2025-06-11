@@ -1,0 +1,23 @@
+@startuml modifica_tassonomia
+
+object Utente
+object Interfaccia
+object Server
+object Database
+object FormModifica
+object Index
+
+Utente -> Interfaccia : 1. clic su "Modifica"
+Interfaccia -> Server : 2. richiesta caricamento pagina dettagli
+Server -> Database : 3. recupera dettagli tassonomia
+Database -> Server : 4. risposta dettagli
+
+' Flusso positivo
+Server --> FormModifica : 5a. se risposta OK, crea form con dati
+FormModifica -> Utente : 6a. mostra form modificabile
+
+' Flusso errore
+Server --> Index : 5b. se errore, mostra messaggio e redirect
+Index -> Utente : 6b. visualizza pagina di scelta
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml Stato_Rimuovi_Elemento
+
+[*] --> AttesaClickRimuovi
+
+AttesaClickRimuovi --> ControlloPresenzaFigli : clic su "Rimuovi"
+ControlloPresenzaFigli --> AttesaConfermaUtente : se l'elemento ha figli
+AttesaConfermaUtente --> InviaRichiestaCancellazione : conferma
+AttesaConfermaUtente --> CancellazioneAnnullata : annulla
+
+ControlloPresenzaFigli --> InviaRichiestaCancellazione : se non ha figli
+
+InviaRichiestaCancellazione --> AttesaRispostaServer
+AttesaRispostaServer --> CancellazioneRiuscita : successo
+AttesaRispostaServer --> ErroreCancellazione : errore
+
+CancellazioneAnnullata --> [*]
+CancellazioneRiuscita --> [*]
+ErroreCancellazione --> [*]
+
+@enduml

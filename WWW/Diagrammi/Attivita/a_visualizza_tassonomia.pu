@@ -1,0 +1,14 @@
+@startuml Visualizza_tassonomia
+start
+:Utente clicca su "Visualizza";
+:Invia richiesta di caricamento pagina dettagli;
+:Recupera dettagli della tassonomia dal DB;
+if (Risposta OK?) then (sì)
+  :Mostra pagina con dettagli tassonomia;
+  stop
+else (no)
+  :Mostra messaggio di errore;
+  :Reindirizza alla pagina di scelta (index);
+  stop
+endif
+@enduml

@@ -1,0 +1,14 @@
+@startuml Salvataggio_modifiche
+start
+:Utente clicca su "Salva";
+:Invia i dati modificati al server;
+:Server valida e aggiorna i dati nel DB;
+if (Salvataggio riuscito?) then (sì)
+    :Reindirizza alla pagina di scelta (index);
+    stop
+else (no)
+    :Mostra messaggio di errore;
+    :Rimane nel form per permettere correzioni;
+    stop
+endif
+@enduml

@@ -1,5 +1,10 @@
 var nomePrecedente, descrizionePrecedente;
 
+/**
+ * backHome
+ * Fa tornare l'utente alla homepage
+ * @returns {void}
+ */
 function backHome() {
   // Reindirizza alla pagina ../index.php
   window.location.href = "../index.php";
@@ -20,11 +25,24 @@ $(".esci").on("click", function () {
   }
 });
 
+/**
+ * impostaValori
+ * Imposto i valori negli input
+ * @param {string} nomePrecedente nome attuale (letto dal DB)
+ * @param {string} descrizionePrecedente descrizione attuale (letto dal DB)
+ * @returns {void}
+ */
 function impostaValori(nomePrecedente, descrizionePrecedente) {
   $("#nomeTassonomia").val(nomePrecedente);
   $("#descTassonomia").val(descrizionePrecedente);
 }
 
+/**
+ * risultatiModifica
+ * Verifico i risultati
+ * @param {Object | Object[]} data Risultato della chiamata
+ * @returns {void}
+ */
 function risultatiModifica(data) {
   switch (data.risultato) {
     case 1:
@@ -42,6 +60,11 @@ function risultatiModifica(data) {
   }
 }
 
+/**
+ * salvaModifiche
+ * Legge i nuovi valori e dopo averli verificati fa una richiesta per l'inserimento
+ * @returns {void}
+ */
 function salvaModifiche() {
   const nomeTassonomia = $("#nomeTassonomia").val();
   const descTassonomia = $("#descTassonomia").val();
@@ -116,6 +139,11 @@ function salvaModifiche() {
 }
 
 $(document).ready(function () {
+  if (!idTassonomia) {
+    alert("Errore: id non valido");
+    backHome();
+  }
+
   $.post(
     "../back_end/get_tassonomia.php",
     { id: idTassonomia, func: 1 },
@@ -123,7 +151,27 @@ $(document).ready(function () {
       nomePrecedente = data.nome;
       descrizionePrecedente = data.descrizione;
       impostaValori(nomePrecedente, descrizionePrecedente);
+      impostaTitle(nomePrecedente);
     },
     "json"
   );
 });
+
+$(document).ready(function () {
+  $("#back_home").click(function (e) {
+    const uscire = confirm("Vuoi uscire? Niente verrà salvato.");
+    if (!uscire) {
+      e.preventDefault();
+    }
+  });
+});
+
+/**
+ * impostaTitle
+ * Imposto il titolo alla pagina HTML
+ * @param {string} titolo
+ * @returns {void}
+ */
+function impostaTitle(titolo) {
+  $("title").text(titolo);
+}

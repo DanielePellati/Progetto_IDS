@@ -1,0 +1,17 @@
+@startuml Stato_Visualizza_Tassonomia
+
+[*] --> AttesaClickVisualizza
+
+AttesaClickVisualizza --> InvioRichiestaCaricamento : clic su "Visualizza"
+InvioRichiestaCaricamento --> AttesaRispostaDB
+AttesaRispostaDB --> RispostaOK : risposta OK
+AttesaRispostaDB --> RispostaErrore : errore
+
+RispostaOK --> MostraDettagliTassonomia
+MostraDettagliTassonomia --> [*]
+
+RispostaErrore --> MostraMessaggioErrore
+MostraMessaggioErrore --> ReindirizzaIndex
+ReindirizzaIndex --> [*]
+
+@enduml

@@ -1,0 +1,14 @@
+@startuml Stato_Modifica_Tassonomia
+
+[*] --> InAttesaClick
+
+InAttesaClick --> CaricamentoDettagli : clic su "Modifica"
+CaricamentoDettagli --> AttesaRisposta : invia richiesta al DB
+AttesaRisposta --> FormCaricato : risposta OK
+AttesaRisposta --> ErroreCaricamento : risposta fallita
+
+FormCaricato --> [*]
+ErroreCaricamento --> ReindirizzamentoIndex
+ReindirizzamentoIndex --> [*]
+
+@enduml
