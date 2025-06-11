@@ -1,9 +1,19 @@
+/**
+ * getId
+ * legge e ritorna l'id passato in get e letto dal querystring
+ * @returns {number} restituisce l'id
+ */
 function getId() {
-  // legge e ritorna l'id passato in get e letto dal querystring
   let urlParamas = new URLSearchParams(window.location.search);
   return parseInt(urlParamas.get("idCategoria"));
 }
 
+/**
+ * popolaTabella
+ * Riempie la tabella
+ * @param {Array} categoria contiene le informazioni della categoria passati dal DB
+ * @returns {void}
+ */
 function popolaTabella(categoria) {
   let tabella;
   let bottoneElimina;
@@ -30,6 +40,12 @@ function popolaTabella(categoria) {
   $("#bodyTabCategoria").append(tabella);
 }
 
+/**
+ * eliminaElemento
+ * Procedura di eliminazione di una voce della categoria
+ * @param {number} idVoce id della voce da cancellare
+ * @returns {void}
+ */
 function eliminaElemento(idVoce) {
   $.post(
     "../back_end/elimina_voceCategoria.php",
@@ -39,9 +55,9 @@ function eliminaElemento(idVoce) {
         alert("Cancellazione impossibile. L'elemento è in uso");
       } else if (data.esito == -1) {
         alert("Elemento da cancellare non valido");
-      }else if (data.esito == -3){
+      } else if (data.esito == -3) {
         alert("Errore nella cancellazione");
-      }else{
+      } else {
         window.location.replace(window.location.href);
       }
     },
@@ -49,22 +65,23 @@ function eliminaElemento(idVoce) {
   );
 }
 
+/**
+ * creaTabella
+ * Inizia la procedura di creazione della tabella
+ * @returns {void}
+ */
 function creaTabella() {
   const idCategoria = getId();
-
-  
 
   $.get(
     "../back_end/get_categoria.php",
     { idCategoria: idCategoria, scelta: 2 },
     function (data) {
-        if(data.risultato == -3){
-            alert("Errore: id categoria non valido");
-        }else if(data.risultato == -5) {
-            alert("Errore nella query");
-        }
-           
-
+      if (data.risultato == -3) {
+        alert("Errore: id categoria non valido");
+      } else if (data.risultato == -5) {
+        alert("Errore nella query");
+      }
 
       popolaTabella(data);
     },
@@ -72,6 +89,12 @@ function creaTabella() {
   );
 }
 
+/**
+ * impostaInformazioni
+ * Imposta il titolo e i bottoni della pagina
+ * @param {Object} info informazioni da mettere nei vari bottoni
+ * @returns {void}
+ */
 function impostaInformazioni(info) {
   $("title").text(info.nome);
 
@@ -79,6 +102,17 @@ function impostaInformazioni(info) {
   $("#indietro").attr("href", indietro);
 
   creaTabella();
+}
+
+/**
+ * stampaErrore
+ * Stampa un messaggio di errore e torna all'index
+ * @param {string} msg
+ * @returns {void}
+ */
+function stampaErrore(msg) {
+  alert(msg);
+  window.location.href = "../index.php";
 }
 
 $(document).ready(function () {
@@ -90,13 +124,15 @@ $(document).ready(function () {
     { idCategoria: idCategoria, scelta: 1 },
     function (data) {
       if (data.risultato == -1) {
-        alert("Errore: scelta = null");
+        stampaErrore("Errore: scelta = null");
       } else if (data.risultato == -2) {
-        alert("Errore: scelta non valida. Valori validi: 1, 2");
+        stampaErrore("Errore: scelta non valida. Valori validi: 1, 2");
       } else if (data.risultato == -3) {
-        alert("Errore: id categoria non valido. Categoria = " + data.categoria);
+        stampaErrore(
+          "Errore: id categoria non valido. Categoria = " + data.categoria
+        );
       } else if (data.risultato == -4) {
-        alert("Errore nella query");
+        stampaErrore("Errore nella query");
       } else {
         impostaInformazioni(data);
       }

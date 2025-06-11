@@ -1,3 +1,22 @@
+/**
+ * stampaErrore
+ * Stampa l'errore e ritorna all'index
+ * @returns {void}
+ */
+function stampaErrore() {
+  alert("Errore: id non valido");
+  window.location.href = "../index.php";
+}
+
+/**
+ * creaFormElemento
+ * crea il form per inserire l'elemento
+ * @param {number} num numero di elementi
+ * @param {jQuery} $container oggetto JQ che rappresenta il container per gli input
+ * @param {string} tipo due possibili valori: attributo o sinonimo
+ * @returns {void}
+ * 
+ */
 function creaFormElemento(num, $container, tipo) {
   // Trova quanti input sono già presenti nel contenitore
   const currentFields =
@@ -51,6 +70,13 @@ function creaFormElemento(num, $container, tipo) {
 }
 
 $(document).ready(function () {
+  // non controllo id padre perché può essere null
+  if (!idElemento || !id_tassonomia) {
+    stampaErrore();
+  }
+});
+
+$(document).ready(function () {
   const $containerAttributi = $("#campiAttributi");
   const $containerSinonimi = $("#campiSinonimi");
   // Aggiungi una riga di input di default al caricamento della pagina (1 campo iniziale)
@@ -71,7 +97,13 @@ $(document).ready(function () {
   });
 });
 
-// crea le option per scegliere la categoria
+/**
+ * creaOpzioniSelect
+ * crea le option per scegliere la categoria
+ * @param {Object[]} data array con gli elementi da scegliere
+ * @param {string} strOpzioni stringa a cui aggiungere le opzioni
+ * @returns {string} stringa con tutte le opzioni
+ */
 function creaOpzioniSelect(data, strOpzioni) {
   data.forEach((elemento) => {
     strOpzioni += `
@@ -82,7 +114,13 @@ function creaOpzioniSelect(data, strOpzioni) {
   return strOpzioni;
 }
 
-// crea le option per scegliere l'elemento di una categoria
+/**
+ * creaOpzioniCategoria
+ * crea le option per scegliere l'elemento di una categoria
+ * @param {Object[]} data array con gli elementi categoriali 
+ * @param {string} strOpzioni stringa con le varie opzioni da mettere nel select
+ * @returns {any}
+ */
 function creaOpzioniCategoria(data, strOpzioni) {
   data.forEach((elemento) => {
     strOpzioni += `
@@ -93,7 +131,13 @@ function creaOpzioniCategoria(data, strOpzioni) {
   return strOpzioni;
 }
 
-// crea l'elenco di select per scegliere il categoriale
+/**
+ * creaCategoriale
+ * Crea l'elenco di select per scegliere il categoriale
+ * @param {number} idElemento 
+ * @param {any} oldInput 
+ * @returns {void}
+ */
 function creaCategoriale(idElemento, oldInput) {
   var divCategoriale = $("<div>", {
     id: `div-attributo-${idElemento}`,
@@ -120,7 +164,13 @@ function creaCategoriale(idElemento, oldInput) {
   );
 }
 
-// ottiene e poi stampa a schermo le informazioni delle categorie
+/**
+ * getInfoCategoria
+ * ottiene e poi stampa a schermo le informazioni delle categorie
+ * @param {number} idCategoria id della categoria 
+ * @param {any} idElemento id dell'elemento categoriale
+ * @returns {void}
+ */
 function getInfoCategoria(idCategoria, idElemento) {
   $.get(
     "../back_end/get_categorie.php",
@@ -197,7 +247,12 @@ $("label[for='nomeElemento']").hover(
   }
 );
 
-// legge tutti gli attributi per ottenere la lista
+
+/**
+ * getListaAttributi
+ * legge tutti gli attributi per ottenere la lista
+ * @returns {Attributo[]} ritorno la lista degli attributi
+ */
 function getListaAttributi() {
   let listaAttributi = [];
   let attributo;
@@ -233,6 +288,11 @@ function getListaAttributi() {
   return listaAttributi;
 }
 
+/**
+ * getListaSinonimi
+ * Ottiene la lista dei sinonimi
+ * @returns {string[]} lista sinonimi
+ */
 function getListaSinonimi() {
   let listaSinonimi = [];
   let numSinonimi = $("#numeroSinonimi").val();
@@ -246,7 +306,11 @@ function getListaSinonimi() {
   }
   return listaSinonimi;
 }
-// lista sinonimi vuota, quindi l'aggiunta è andata bene
+/**
+ * impostaSinonimi
+ * Effettua la richiesta per inserire i sinonimi nel DB
+ * @returns {void}
+ */
 function impostaSinonimi() {
   let listaSinonimi = getListaSinonimi();
   if (listaSinonimi.length > 0) {
@@ -267,9 +331,16 @@ function impostaSinonimi() {
         }
       }
     );
+  } else {
+    location.replace(`./visualizzaTassonomia.html?id=${id_tassonomia}`);
   }
 }
 
+/**
+ * impostaAttributi
+ * Effettua la richiesta per inserire gli attributi nel DB
+ * @returns {void}
+ */
 function impostaAttributi() {
   let listaAttributi = getListaAttributi();
 
@@ -295,10 +366,14 @@ function impostaAttributi() {
   }
 }
 
-// entro in questa funzione se è stato cliccato "salva elemento"
+/**
+ * salvaElemento
+ * entro in questa funzione se è stato cliccato "salva elemento"
+ * Effettua la richiesta per iniziare il processo di salvataggio di un elemento
+ * @returns {void}
+ */
 function salvaElemento() {
   const nomeElemento = $("#nomeElemento").val();
-  let listaSinonimi = [];
 
   if (nomeElemento.length == 0 || nomeElemento.length == undefined) {
     alert("Il campo 'nome' è obbligatorio");
@@ -332,3 +407,14 @@ function salvaElemento() {
     );
   }
 }
+
+$(document).ready(function () {
+  $("#indietro").attr('href', `./visualizzaTassonomia.html?id=${id_tassonomia}`);
+});
+
+$(".conferma").click(function (e) {
+  const uscire = confirm("Vuoi uscire? Niente verrà salvato.");
+  if (!uscire) {
+    e.preventDefault();
+  }
+});

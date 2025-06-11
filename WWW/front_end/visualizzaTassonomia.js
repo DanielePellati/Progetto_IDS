@@ -16,6 +16,14 @@
 let urlParamas = new URLSearchParams(window.location.search);
 const id = urlParamas.get("id");
 
+/**
+ * sostituisciElemento
+ * Passo le informazioni per sostituire l'elemento
+ * @param {number} idElemento id dell'elemento da sostituire
+ * @param {number} idTassonomia id della tassonomia a cui appartiene
+ * @param {number} idPadre id del padre dell'elemento da sostituire
+ * @returns {void}
+ */
 function sostituisciElemento(idElemento, idTassonomia, idPadre) {
   const $form = $("<form>", {
     method: "POST",
@@ -49,6 +57,13 @@ function sostituisciElemento(idElemento, idTassonomia, idPadre) {
   $form.appendTo("body").submit();
 }
 
+/**
+ * creaAlbero
+ * Funzione che crea l'albero coi dati della tassonomia
+ * @param {int} padreId id del padre (serve per i figli)
+ * @param {Array} tassonomia tassonomia che andrà a riempire l'albero
+ * @returns {jQuery} ritorna un pezzo di albero
+ */
 function creaAlbero(padreId, tassonomia) {
   let figli = tassonomia.filter((el) => el.id_padre === padreId);
 
@@ -103,6 +118,12 @@ function creaAlbero(padreId, tassonomia) {
   return ul;
 }
 
+/**
+ * popolaAlbero
+ * Altro pezzo dalla costruzione dell'albero
+ * @param {Array} tassonomia tassonomia che andrà a riempire l'albero
+ * @returns {void}
+ */
 function popolaAlbero(tassonomia) {
   // Costruzione dell'albero partendo dalla radice
   let radice = tassonomia.find((el) => el.id_padre === null);
@@ -130,6 +151,12 @@ function popolaAlbero(tassonomia) {
   }
 }
 
+/**
+ * getInfoTassonomia
+ * Funzione che prendere le info della tassonomia
+ * @param {number} id id della tassonomia di cui prendere le info
+ * @returns {void}
+ */
 function getInfoTassonomia(id) {
   $.get(
     "/back_end/get_tassonomia.php",
@@ -142,6 +169,12 @@ function getInfoTassonomia(id) {
   );
 }
 
+/**
+ * getDatiTassonomia
+ * Funzione che prendere i dati della tassonomia
+ * @param {number} id id della tassonomia di cui prendere le info
+ * @returns {void}
+ */
 function getDatiTassonomia(id) {
   $.get(
     "/back_end/get_tassonomia.php",
@@ -150,6 +183,14 @@ function getDatiTassonomia(id) {
     "json"
   );
 }
+
+/**
+ * checkEmpty
+ * Controlla se la tassonomia è vuota
+ * @param {number} id ID della tassonomia
+ * @param {function} callback Funzione chiamata al termine della richiesta, riceve in input il numero di elementi trovati
+ * @returns {any}
+ */
 
 function checkEmpty(id, callback) {
   $.get(
@@ -163,6 +204,12 @@ function checkEmpty(id, callback) {
   );
 }
 
+/**
+ * generaCreaRadice
+ * Genere bottone per creare la radice (solo se tassonomia vuota)
+ * @param {number} id id della tassonomia da generare
+ * @returns {void}
+ */
 function generaCreaRadice(id) {
   var creaRadice = `
         <p>Tassonomia vuota</p>
@@ -177,9 +224,10 @@ function generaCreaRadice(id) {
 }
 
 $(document).ready(function () {
+  getInfoTassonomia(id);
+
   checkEmpty(id, function (nElementi) {
     if (nElementi > 0) {
-      getInfoTassonomia(id);
       getDatiTassonomia(id);
     } else {
       generaCreaRadice(id);
@@ -187,6 +235,12 @@ $(document).ready(function () {
   });
 });
 
+/**
+ * aggiungiFiglio
+ * Va sulla pagina di aggiunta del figlio passandogli i dati
+ * @param {number} id_padre id del padre dell'elemento da aggiungere
+ * @returns {void}
+ */
 function aggiungiFiglio(id_padre) {
   const id_tassonomia = id;
 
@@ -210,6 +264,14 @@ function aggiungiFiglio(id_padre) {
   form.appendTo("body").submit();
 }
 
+/**
+ * rimuoviElemento
+ * Funzione per eliminare un elemento
+ * @param {number} id_elemento id dell'elemento da aggiungere
+ * @param {boolean} isPadre indica se l'elemento è padre
+ * @param {number} idTassonomia id della tassomomia in cui è contenuto l'elemento
+ * @returns {}
+ */
 function rimuoviElemento(id_elemento, isPadre, idTassonomia) {
   let scelta;
 
@@ -250,5 +312,27 @@ $(document).ready(function () {
   $("#inserisciCategoria").attr(
     "href",
     `./creaCategoria.html?idTassonomia=${id}`
+  );
+  $("#nomiPrecedenti").attr("href", `./nomiPrecedenti.html?idTassonomia=${id}`);
+});
+
+$(document).ready(function () {
+  if (!id) {
+    alert("Errore: id non valido");
+    window.location.href = "../index.php";
+  }
+
+  $.get(
+    "../back_end/get_tassonomia.php",
+    { id: id, func: 1 },
+    function (data) {
+      if (data.risultato == -1) {
+        alert("Errore");
+        window.location.href = "../index.php";
+      } else {
+        $("title").text(data.nome);
+      }
+    },
+    "json"
   );
 });

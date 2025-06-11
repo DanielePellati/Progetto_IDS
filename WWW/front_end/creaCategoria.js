@@ -1,3 +1,23 @@
+/**
+ * getId()
+ * Legge e ritorna l'id passato in GET e letto dal querystring.
+ * @returns {number} id passato in GET e letto dal querystring
+ */
+function getId() { 
+  let urlParamas = new URLSearchParams(window.location.search);
+  return parseInt(urlParamas.get("idTassonomia"));
+}
+
+/**
+ * stampaErrore
+ * Stampa un messaggio di errore e ritorna all'index.
+ * @returns {void}
+ */
+function stampaErrore() {
+  alert("Errore: id non valido");
+  window.location.href = "../index.php";
+}
+
 $(document).ready(function () {
   $("#categoryForm").on("submit", function (e) {
     e.preventDefault();
@@ -12,9 +32,12 @@ $(document).ready(function () {
     if (nome.trim().length == 0) {
       return false;
     }
-    
 
-    if (idTassonomia === null || isNaN(idTassonomia) || parseInt(idTassonomia) <= 0) {
+    if (
+      idTassonomia === null ||
+      isNaN(idTassonomia) ||
+      parseInt(idTassonomia) <= 0
+    ) {
       return false;
     }
 
@@ -22,8 +45,6 @@ $(document).ready(function () {
       alert("Numero di voci non valido");
       return false;
     }
-    
-    
 
     for (let i = 0; i < numVoci; i++) {
       let voce = $(`#voce-${i}`).val().trim();
@@ -34,7 +55,6 @@ $(document).ready(function () {
     }
 
     if (listaVoci.length != 0) {
-
       let urlParamas = new URLSearchParams(window.location.search);
       var idTassonomia = urlParamas.get("idTassonomia");
 
@@ -46,9 +66,9 @@ $(document).ready(function () {
           idTassonomia: idTassonomia,
         },
         function (data) {
-          if(data == -1){
-            alert("Errore");
-          }else{
+          if (data == -1) {
+            stampaErrore();
+          } else {
             location.replace(`./visualizzaTassonomia.html?id=${idTassonomia}`);
           }
         }
@@ -59,6 +79,13 @@ $(document).ready(function () {
   });
 });
 
+/**
+ * aggiungiVoce
+ * Aggiunge input voci quando viene aumentato il contatore
+ * @param {number} numeroScelto numero di voci scelto dall'utente
+ * @param {number} numeroAttuale numero di voci attuale
+ * @returns {void}
+ */
 function aggiungiVoce(numeroScelto, numeroAttuale) {
   const divVoci = $("#divInputVoci");
 
@@ -84,6 +111,13 @@ function aggiungiVoce(numeroScelto, numeroAttuale) {
   }
 }
 
+/**
+ * rimuoviVoce
+ * Rimuove gli input in eccesso quando diminuisce il numero
+ * @param {number} numeroAttuale numero attuale di elementi
+ * @param {number} numeroScelto numero scelto di elementi
+ * @returns {void}
+ */
 function rimuoviVoce(numeroAttuale, numeroScelto) {
   for (let i = numeroScelto; i < numeroAttuale; i++) {
     $(`#labelVoce-${i}`).remove();
@@ -107,4 +141,15 @@ $("#categoryNumber").on("change", function () {
   numeroScelto > numeroAttuale
     ? aggiungiVoce(numeroScelto, numeroAttuale)
     : rimuoviVoce(numeroAttuale, numeroScelto);
+});
+
+$("#indietro").ready(function () {
+  $("#indietro").attr("href", `./visualizzaTassonomia.html?id=${getId()}`);
+});
+
+$(".conferma").click(function (e) {
+  const uscire = confirm("Vuoi uscire? Niente verrà salvato.");
+  if (!uscire) {
+    e.preventDefault();
+  }
 });

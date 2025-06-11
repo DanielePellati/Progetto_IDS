@@ -4,16 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sostituisci</title>
 
     <link href="/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="./creaTassonomia.css">
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/bootstrap.bundle.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <!-- icone -->
 </head>
 
 <body>
+
+    <!-- Header -->
+    <header class="bg-dark text-white py-4 mb-4">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!-- Pulsanti -->
+            <div>
+                <a id="indietro" id="indietro" class="conferma btn btn-outline-light me-2">
+                    <i class="bi bi-arrow-left"></i> Indietro
+                </a>
+                <a href="../index.php" id="back_home" class="conferma btn btn-outline-light">
+                    <i class="bi bi-house-fill"></i> Home
+                </a>
+            </div>
+            <!-- Titolo -->
+            <h1 class="nome_elemento mb-0 text-center flex-grow-1"></h1>
+            <!-- Spazio vuoto per bilanciare layout -->
+            <div style="width: 120px;"></div>
+        </div>
+    </header>
+
     <div class="card shadow rounded-4 mb-4">
         <div class="card-body">
             <h2 class="card-title mb-4">Nome dell'elemento</h2>
@@ -71,7 +92,6 @@
     </script>
 
     <script src="./classAttributoElemento.js"></script>
-    <script src="./classElementoTassonomia.js"></script>
     <script src="./sostituisciElemento.js"></script>
 
 

@@ -1,14 +1,20 @@
 let urlParamas = new URLSearchParams(window.location.search);
 var id = urlParamas.get("id_elemento");
 
+function stampaErrore() {
+  alert("Errore: id non valido");
+  window.location.href = "../index.php";
+}
+
 /**
- * Description
+ * popolaTabellaValori
+ * Riempie la tabella con i valori
  *
  * @typedef {string} Categoriale - Valore categoriale
  *
  * @typedef {Object} Attributo
  * @property {int | string | Categoriale} Attributo
- * @param {Array <Attributo>} data - L'Array conteiene tutti gli attributi dell'elemento di cui si sta leggendo la scheda
+ * @param {Attributo[]} data - L'Array conteiene tutti gli attributi dell'elemento di cui si sta leggendo la scheda
  *
  */
 function popolaTabellaValori(data) {
@@ -52,6 +58,12 @@ function popolaTabellaValori(data) {
   $(".valori").append(tabella);
 }
 
+/**
+ * popolaTabellaNomiPrecedenti
+ * Riempie la tabella con i nomi precedenti
+ * @param {Array} data contiene le informazioni dei nomi precedenti
+ * @returns {void}
+ */
 function popolaTabellaNomiPrecedenti(data) {
   let strTagApertura = `
     
@@ -93,6 +105,12 @@ function popolaTabellaNomiPrecedenti(data) {
   $(".nomi_precedenti").append(tabella);
 }
 
+/**
+ * popolaTabellaSinonimi
+ * Riempio la tabella dei sinonimi
+ * @param {Array} data contiene la lista dei sinonimi
+ * @returns {void}
+ */
 function popolaTabellaSinonimi(data) {
   let strTagApertura = `
     
@@ -133,51 +151,8 @@ function popolaTabellaSinonimi(data) {
   $(".sinonimi").append(tabella);
 }
 
-function popolaTabellaValoriPrecedenti(data) {
-  let strTagApertura = `
-    <div class="mb-5">
-      <h3>Attributi precedenti</h3>
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <thead class="table-dark">
-            <tr>
-              <th>Valore precedente</th>
-              <th>Valore attuale</th>
-              <th>Tipo Precedente </th>              
-              <th>Data modifica</th>
-            </tr>    
-          </thead>
-          <tbody>   
-    `;
-
-  // Tag di chiusura per la tabella
-  let strTagChiusura = `
-          </tbody>
-        </table>
-      </div>
-    </div>
-    `;
-
-  let rigaTabella = "";
-
-  data.forEach((valori_precedenti) => {
-    rigaTabella += `
-      
-        <tr>
-          <td>${valori_precedenti.valore_precedente}</td>
-          <td>${valori_precedenti.valore_attuale}</td>
-          <td>${valori_precedenti.tipo_precedente}</td>
-          <td>${valori_precedenti.data_modifica}</td>
-        </tr>
-      `;
-  });
-
-  let tabella = strTagApertura + rigaTabella + strTagChiusura;
-  $(".valori_precedenti").append(tabella);
-}
-
 /**
- * Description
+ * crea le tabelle per le informazioni dell'elemento
  * @param {Array} data - array che può contenere valori degli attributi, nomi precedenti, sinonimi, attributi precedenti
  * @param {int} sceltaTabella - valore che permette di capire quale funzione chiamare, così da popolare ogni volta la tabella corretta
  */
@@ -192,14 +167,17 @@ function creaTabella(data, sceltaTabella) {
     case 3:
       popolaTabellaSinonimi(data);
       break;
-    case 4:
-      //popolaTabellaValoriPrecedenti(data);
-      break;
     default:
       break;
   }
 }
 
+/**
+ * creaIntestazione
+ * Crea l'intestazione (nome, bottone indietro, ecc...)
+ * @param {string} data contiene nome e id per impostare dinamicamente back e titolo
+ * @returns {void} 
+ */
 function creaIntestazione(data) {
   var dataSplitted = data.split(",");
   $(".nome_elemento").html(dataSplitted[0]);
@@ -210,50 +188,57 @@ function creaIntestazione(data) {
 }
 
 /**
- * Description
+ * getValori
+ * Raccoglie i valori dal DB per poi creare la pagina
  * @param {int} id - id dell'elemento. Serve per la query
- *
  */
 function getValori(id) {
-  $.get("/back_end/get_elemento.php", { id: id, scelta: 0 }, function (data) {
-    creaIntestazione(data);
-  });
+  if (!id) {
+    stampaErrore();
+    return;
+  } else {
+    $.get("/back_end/get_elemento.php", { id: id, scelta: 0 }, function (data) {
+      if (data == -1) {
+      }
+      creaIntestazione(data);
+    });
 
-  $.get(
-    "/back_end/get_elemento.php",
-    { id: id, scelta: 1 },
-    function (data) {
-      creaTabella(data, 1);
-    },
-    "json"
-  );
+    $.get(
+      "/back_end/get_elemento.php",
+      { id: id, scelta: 1 },
+      function (data) {
+        creaTabella(data, 1);
+      },
+      "json"
+    );
 
-  $.get(
-    "/back_end/get_elemento.php",
-    { id: id, scelta: 2 },
-    function (data) {
-      creaTabella(data, 2);
-    },
-    "json"
-  );
+    $.get(
+      "/back_end/get_elemento.php",
+      { id: id, scelta: 2 },
+      function (data) {
+        creaTabella(data, 2);
+      },
+      "json"
+    );
 
-  $.get(
-    "/back_end/get_elemento.php",
-    { id: id, scelta: 3 },
-    function (data) {
-      creaTabella(data, 3);
-    },
-    "json"
-  );
+    $.get(
+      "/back_end/get_elemento.php",
+      { id: id, scelta: 3 },
+      function (data) {
+        creaTabella(data, 3);
+      },
+      "json"
+    );
 
-  $.get(
-    "/back_end/get_elemento.php",
-    { id: id, scelta: 4 },
-    function (data) {
-      creaTabella(data, 4);
-    },
-    "json"
-  );
+    $.get(
+      "/back_end/get_elemento.php",
+      { id: id, scelta: 4 },
+      function (data) {
+        creaTabella(data, 4);
+      },
+      "json"
+    );
+  }
 }
 
 $(document).ready(function () {

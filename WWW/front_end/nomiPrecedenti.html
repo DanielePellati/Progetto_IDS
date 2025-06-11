@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <title>Albero Tassonomico</title>
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" href="albero.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
@@ -26,52 +25,42 @@
     <!-- Imposta la data di scadenza a "subito", quindi il file è sempre considerato scaduto -->
     <meta http-equiv="Expires" content="0" />
   </head>
-
   <body>
     <!-- Header -->
     <header class="bg-dark text-white py-4 mb-4">
       <div class="container d-flex justify-content-between align-items-center">
         <!-- Pulsanti -->
         <div>
+          <a id="indietro" class="btn btn-outline-light me-2">
+            <i class="bi bi-arrow-left"></i> Indietro
+          </a>
           <a href="../index.php" class="btn btn-outline-light">
             <i class="bi bi-house-fill"></i> Home
-          </a>
-          <a id="mostraCategorie" class="btn btn-outline-light">
-            Mostra categorie
-          </a>
-          <a id="nomiPrecedenti" class="btn btn-outline-light">
-            Nomi precedenti
-          </a>
-          <a id="inserisciCategoria" class="btn btn-outline-light">
-            Inserisci categoria
           </a>
         </div>
         <!-- Titolo -->
         <h1 class="nome_elemento mb-0 text-center flex-grow-1"></h1>
         <!-- Spazio vuoto per bilanciare layout -->
-        <div style="width: 120px;"></div>
+        <div style="width: 120px"></div>
       </div>
     </header>
 
-    <!-- Sezione Nome e Descrizione della Tassonomia -->
-    <div class="container mb-4">
-      <div class="card">
-        <div class="card-body">
-          <h2 id="tassNome" class="nome-tassonomia"></h2>
-          <p id="desc" class="descrizione-tassonomia text-muted"></p>
-        </div>
-      </div>
-    </div>
+    <table
+      id="nomi_precedenti"
+      class="table table-bordered table-striped text-center"
+    >
+      <thead class="table-dark">
+        <tr>
+          <th>Nome precedente</th>
+          <th>Nome attuale</th>
+          <th>Data modifica</th>
+        </tr>
+      </thead>
+      <tbody id="bodyTabNomiPrecedenti"></tbody>
+    </table>
 
-    <div class="card">
-      <div class="card-body">
-        <ul id="tree-container" class="tree"></ul>
-        <!-- Albero populato da JS -->
-      </div>
-    </div>
+    <script src="../jquery/jquery-3.7.1.min.js"></script>
+    <script src="./nomiPrecedenti.js"></script>
 
-    <script src="/jquery/jquery-3.7.1.min.js"></script>
-    <script src="visualizzaTassonomia.js"></script>
-    <script src="albero.js"></script>
   </body>
 </html>
