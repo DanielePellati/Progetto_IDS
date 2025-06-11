@@ -32,6 +32,7 @@
                     <th>Visualizza</th>
                     <th>Modifica</th>
                     <th>Elimina</th>
+                    <th>Scarica</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,6 +43,17 @@
 
     <!-- Bootstrap JS -->
     <script src="bootstrap/bootstrap.bundle.min.js"></script>
+
+    <!-- inclusione per gestire la cancellazione -->
+    <script src="/front_end/eliminaTassonomia.js"></script>
+    
+
+    <!-- inclusione degli script per gestire il download del JSON--->
+    <script src="/front_end/classAttributoElemento.js"></script>
+    <script src="/front_end/classNomePrecedente.js"></script>
+    <script src="/front_end/classElementoTassonomia.js"></script>
+    <script src="/front_end/classTassonomia.js"></script>
+    <script src="/front_end/downloadJson.js"></script>
 </body>
 
 </html>
