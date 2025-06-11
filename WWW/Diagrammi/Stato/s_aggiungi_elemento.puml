@@ -1,0 +1,19 @@
+@startuml Stato_Aggiunta
+
+[*] --> InAttesaInterazione
+
+InAttesaInterazione --> FormAperto : click su "Aggiungi"
+FormAperto --> InValidazione : click su "Invia"
+
+InValidazione --> ErroreDati : dati non validi
+InValidazione --> InvioServer : dati validi
+
+InvioServer --> Completato : inserimento OK
+InvioServer --> ErroreServer : errore DB
+
+ErroreDati --> FormAperto : torna al form
+ErroreServer --> Index : torna alla scelta
+
+Completato --> Visualizza : ritorno a tassonomia
+
+@enduml
