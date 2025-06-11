@@ -1,0 +1,34 @@
+@startuml package_creaCategoria
+package "Bootstrap" {
+  [bootstrap.min.css]
+  [bootstrap-icons.css]
+  [bootstrap.bundle.min.js]
+}
+
+package "jQuery" {
+  [jquery-3.7.1.min.js]
+}
+
+package "Crea Categoria - Front-end" {
+  [creaCategoria.css]
+  [creaCategoria.js]
+}
+
+package "Back-end" {
+  [set_categoria.php]
+  [connetti_database.php]
+}
+
+' Inclusioni statiche da HTML o JS
+[creaCategoria.js] --> [jquery-3.7.1.min.js]
+[creaCategoria.js] --> [bootstrap.min.css]
+[creaCategoria.js] --> [bootstrap.bundle.min.js]
+[creaCategoria.js] --> [bootstrap-icons.css]
+[creaCategoria.js] --> [creaCategoria.css]
+
+' Chiamate PHP da JS
+[creaCategoria.js] --> [set_categoria.php]
+
+' Connessione al DB
+[set_categoria.php] --> [connetti_database.php]
+@enduml
