@@ -1,6 +1,6 @@
 ## Pre-requisiti
 
-- Docker Desktop installato
+- Docker installato
 - Terminale (su macOS) o PowerShell (su Windows)
 - Browser web moderno[^browser]
 
