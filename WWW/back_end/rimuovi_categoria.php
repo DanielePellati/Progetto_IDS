@@ -88,7 +88,8 @@ function controllaCategoria($pdo, $arrayIdsVoci)
  * @param  int $idCategoria della categoria da rimuovere
  * @return bool ritorno il risultato dell'eliminazione
  */
-function eliminaCategoria($pdo, $idCategoria){
+function eliminaCategoria($pdo, $idCategoria)
+{
     $query = <<<SQL
         DELETE FROM categorie
         WHERE id = :idCategoria;
@@ -115,17 +116,30 @@ if ($arrayIdsVoci == -2) {
     exit();
 }
 
+// casistica eliminazione categoria vuota
+if (is_array($arrayIdsVoci) && empty($arrayIdsVoci)) {
+    $risultato = eliminaCategoria($pdo, $idCategoria);
+    if (!$risultato) {
+        echo json_encode(['risultato' => "-5"]);
+    }
+    echo json_encode(['risultato' => 0]);
+    exit();
+}
+
+
 $risultato = controllaCategoria($pdo, $arrayIdsVoci);
 
-if($risultato == -3){
-    echo json_encode(["risultato"=> $risultato]);
-}else if($risultato){
-    echo json_encode(["risultato"=> -4]); // Se la query trova qualcosa, mando l'errore.
+if ($risultato == -3) {
+    echo json_encode(["risultato" => $risultato]);
+} else if ($risultato) {
+    echo json_encode(["risultato" => -4]); // Se la query trova qualcosa, mando l'errore.
     exit();
-}else{
+} else {
     $risultato = eliminaCategoria($pdo, $idCategoria);
-    if(!$risultato){
-        echo json_encode(["-5"=> $risultato]);
+    if (!$risultato) {
+        echo json_encode(['risultato' => "-5"]);
+    } else {
+        echo json_encode(['risultato' => 0]);
     }
 }
 
