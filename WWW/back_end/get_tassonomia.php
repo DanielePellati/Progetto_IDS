@@ -67,7 +67,7 @@ function getElementiTassonomia($pdo, $id)
     $query = <<<SQL
         SELECT elemento.id, elemento.id_padre, elemento.nome 
         FROM elemento 
-        WHERE elemento.id_tassonomia = :id AND elemento.id NOT IN (SELECT sinonimo FROM Sinonimi)
+        WHERE elemento.id_tassonomia = :id AND elemento.id NOT IN (SELECT sinonimo FROM sinonimi)
         ORDER BY elemento.id_padre
     SQL;
 
