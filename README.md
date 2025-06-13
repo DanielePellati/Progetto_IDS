@@ -15,8 +15,8 @@
 ## Test 
 
 Aprire il browser e visitare:
-- `http://localhost:8080` per l’applicazione PHP
-- `http://localhost:8081` per phpMyAdmin
+- `http://tassonomie:8080` per l’applicazione PHP
+- `http://tassonomie:8081` per phpMyAdmin
 
 
 **Note**: Assicurarsi che Docker Desktop sia in esecuzione prima di avviare i container.
