@@ -37,7 +37,7 @@ if ($idTassonomia > 0) {
     $query = "
         SELECT categorie.nome, categorie.id 
         FROM categorie 
-        WHERE categorie.id_tassonomia = 14
+        WHERE categorie.id_tassonomia = :id
         GROUP BY categorie.id;
     ";
 
