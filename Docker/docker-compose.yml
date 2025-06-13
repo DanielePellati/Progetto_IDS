@@ -3,7 +3,7 @@ version: "3.8"
 services:
   web:
     build:
-      context: .  # la build avviene dalla cartella Docker
+      context: .
       dockerfile: Dockerfile
     container_name: php_app
     ports:
@@ -12,6 +12,8 @@ services:
       - ../WWW:/var/www/html
     depends_on:
       - db
+    extra_hosts:
+      - "tassonomie:127.0.0.1"
 
   db:
     image: mysql:latest
