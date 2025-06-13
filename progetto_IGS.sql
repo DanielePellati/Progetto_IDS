@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Creato il: Giu 11, 2025 alle 15:48
+-- Creato il: Giu 13, 2025 alle 16:33
 -- Versione del server: 9.2.0
 -- Versione PHP: 8.2.27
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `progetto_IGS`
 --
+CREATE DATABASE IF NOT EXISTS `progetto_IGS` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `progetto_IGS`;
 
 -- --------------------------------------------------------
 
@@ -118,6 +120,18 @@ CREATE TABLE `nomi_precedenti` (
   `data_modifica` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dump dei dati per la tabella `nomi_precedenti`
+--
+
+INSERT INTO `nomi_precedenti` (`id`, `id_elemento_scaduto`, `nome_precedente`, `id_tassonomia`, `data_modifica`) VALUES
+(111, NULL, 'Thriller', 24, '2025-06-12'),
+(112, NULL, 'Giallo', 24, '2025-06-12'),
+(113, NULL, 'Giallo', 24, '2025-06-12'),
+(114, NULL, 'Giallo all\'italiana', 24, '2025-06-12'),
+(115, NULL, 'Thriller', 24, '2025-06-12'),
+(116, NULL, 'Thriller psicologico', 24, '2025-06-12');
+
 -- --------------------------------------------------------
 
 --
@@ -162,7 +176,8 @@ CREATE TABLE `tassonomia` (
 
 INSERT INTO `tassonomia` (`id`, `nome`, `descrizione`) VALUES
 (23, 'Piante da giardino', 'Classificazione delle piante da giardino'),
-(24, 'Generici cinematrografici', '');
+(24, 'Generici cinematrografici', ''),
+(25, 'Vuota', '');
 
 -- --------------------------------------------------------
 
@@ -302,25 +317,25 @@ ALTER TABLE `categorie`
 -- AUTO_INCREMENT per la tabella `elemento`
 --
 ALTER TABLE `elemento`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 
 --
 -- AUTO_INCREMENT per la tabella `nomi_precedenti`
 --
 ALTER TABLE `nomi_precedenti`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT per la tabella `tassonomia`
 --
 ALTER TABLE `tassonomia`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT per la tabella `valore`
 --
 ALTER TABLE `valore`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT per la tabella `valori_precedenti`
