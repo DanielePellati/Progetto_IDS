@@ -39,7 +39,8 @@ function eliminaCategoria(idCategoria) {
           "Impossibile cancellare la categoria: almeno un elemento è in uso"
         );
       else if (data.risultato == -5) alert("Errore nella cancellazione");
-      else {
+      else if(data.risultato == 0){
+        $(`#cat-${idCategoria}`).remove();
       }
     },
     "json"
@@ -74,7 +75,7 @@ function creaTabella(categorie) {
 `;
 
     tabella += `
-            <tr>
+            <tr id = "cat-${categoria.id}">
                 <td> ${categoria.nome} </td> 
                 <td> ${bottoneVisualizza} </td>
                 <td> ${bottoneElimina} </td>

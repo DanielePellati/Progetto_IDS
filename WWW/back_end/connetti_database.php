@@ -14,13 +14,6 @@
  *  - $pdo: istanza PDO per l'accesso al database.
  */
 
-
-// Definizione dei parametri di connessione al database
-$server = "localhost"; // Nome del server
-$user = "root"; // Nome utente per l'accesso al database
-$pass = "root"; // Password dell'utente
-$db = "progetto_IGS"; // Nome del database da utilizzare
-
 // Tentativo di connessione al database utilizzando PDO
 try {
     // Creazione di una nuova istanza PDO per la connessione al database
