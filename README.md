@@ -1,3 +1,5 @@
+# Istruzioni
+
 ## Pre-requisiti
 
 - Docker installato
@@ -21,4 +23,15 @@ Aprire il browser e visitare:
 
 **Note**: Assicurarsi che Docker Desktop sia in esecuzione prima di avviare i container.
 
+# Struttura 
+
+Il progetto è organizzato nelle seguenti cartelle principali:
+
+- `docker/`: contiene i file per la configurazione e l'avvio dei container Docker
+- `WWW/`: contiene il codice dell’applicazione web, suddiviso in:
+  - `frontend/`: file HTML, CSS e JavaScript per l’interfaccia utente
+  - `backend/`: script PHP e logica server-side
+- `docs/`: documentazione del progetto
+
 [^browser]: Qualsiasi browser aggiornato (es. Chrome, Firefox, Safari, Edge).
+
