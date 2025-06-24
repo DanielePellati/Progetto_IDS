@@ -2,17 +2,20 @@
 
 ## Pre-requisiti
 
-- Docker installato
-- Terminale (su macOS) o PowerShell (su Windows)
-- Browser web moderno[^browser]
+- Git installato ([Download Git](https://git-scm.com/downloads)) – necessario per scaricare il progetto via `git clone`  
+- Docker installato ([Download Docker](https://www.docker.com/)) – necessario per costruire ed eseguire i container  
+- Terminale (su macOS) o PowerShell (su Windows)  
+- Browser web moderno[^browser]  
 
 ## Procedimento
 ###### Command line interface (CLI): 
-1) Aprire il terminale (Terminale su macOS, PowerShell o CMD su Windows)  
-2) Posizionarsi nella cartella `Docker` del progetto. Ad esempio:
-   - Su macOS/Linux: `cd .../Progetto_IDS/Docker`
-   - Su Windows: `cd ...\Progetto_IDS\Docker`
-3) Costruire ed avviare i container: `docker-compose up --build`
+1) Aprire il terminale (Terminale su macOS, PowerShell o CMD su Windows)
+2) Scaricare il progetto da github con il comando `git clone https://github.com/DanielePellati/Progetto_IDS/`
+3) Posizionarsi nella cartella del progetto con il comando `cd Progetto_IDS`
+4) Posizionarsi nella cartella `Docker` del progetto. Ad esempio:
+   - Su macOS/Linux: `cd Progetto_IDS/Docker`
+   - Su Windows: `cd Progetto_IDS\Docker`
+5) Costruire ed avviare i container: `docker-compose up --build`
 
 ## Test 
 
